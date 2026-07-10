@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -14,6 +15,10 @@ use Illuminate\Support\Str;
 class BrandResource extends Resource
 {
     protected static ?string $model = Brand::class;
+
+    protected static ?string $modelLabel = 'Marca';
+    protected static ?string $pluralModelLabel = 'Marcas';
+    protected static ?string $navigationLabel = 'Marcas';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-tag';
     protected static string | \UnitEnum | null $navigationGroup = 'Catálogo';
@@ -24,6 +29,7 @@ class BrandResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -31,10 +37,12 @@ class BrandResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255)
                     ->unique(Brand::class, 'slug', ignoreRecord: true),
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Activo')
                     ->default(true),
             ]);
     }
@@ -44,32 +52,37 @@ class BrandResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Activo')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('products_count')
                     ->counts('products')
                     ->label('Productos')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_active'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Activo'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

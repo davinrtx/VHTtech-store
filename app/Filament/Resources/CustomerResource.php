@@ -7,12 +7,17 @@ use App\Models\Customer;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 
 class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
+
+    protected static ?string $modelLabel = 'Cliente';
+    protected static ?string $pluralModelLabel = 'Clientes';
+    protected static ?string $navigationLabel = 'Clientes';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-users';
     protected static string | \UnitEnum | null $navigationGroup = 'Ventas';
@@ -23,17 +28,21 @@ class CustomerResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('Correo electrónico')
                     ->email()
                     ->required()
                     ->maxLength(255)
                     ->unique(Customer::class, 'email', ignoreRecord: true),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Teléfono')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->label('Contraseña')
                     ->password()
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->revealable()
@@ -47,28 +56,32 @@ class CustomerResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Correo electrónico')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Teléfono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('orders_count')
                     ->counts('orders')
                     ->label('Pedidos')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Registrado')
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

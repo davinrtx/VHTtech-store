@@ -8,6 +8,7 @@ use App\Models\Attribute;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -15,6 +16,10 @@ use Illuminate\Support\Str;
 class AttributeResource extends Resource
 {
     protected static ?string $model = Attribute::class;
+
+    protected static ?string $modelLabel = 'Atributo';
+    protected static ?string $pluralModelLabel = 'Atributos';
+    protected static ?string $navigationLabel = 'Atributos';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-list-bullet';
     protected static string | \UnitEnum | null $navigationGroup = 'Catálogo';
@@ -25,6 +30,7 @@ class AttributeResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -32,12 +38,14 @@ class AttributeResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255)
                     ->unique(Attribute::class, 'slug', ignoreRecord: true),
                 Forms\Components\Select::make('type')
+                    ->label('Tipo')
                     ->options([
-                        'select' => 'Select',
+                        'select' => 'Selección',
                         'color' => 'Color',
                         'number' => 'Número',
                         'text' => 'Texto',
@@ -51,6 +59,7 @@ class AttributeResource extends Resource
                     ->label('¿Filtrable?')
                     ->default(true),
                 Forms\Components\TextInput::make('sort_order')
+                    ->label('Orden')
                     ->numeric()
                     ->default(0),
             ]);
@@ -61,9 +70,11 @@ class AttributeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('type')
@@ -81,12 +92,12 @@ class AttributeResource extends Resource
             ->defaultSort('sort_order')
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

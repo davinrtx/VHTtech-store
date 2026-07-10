@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ProductResource\RelationManagers;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -17,11 +18,13 @@ class ProductImageManager extends RelationManager
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('path')
+                    ->label('Ruta')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('is_primary')
                     ->label('Principal'),
                 Forms\Components\TextInput::make('sort_order')
+                    ->label('Orden')
                     ->numeric()
                     ->default(0),
             ]);
@@ -39,21 +42,22 @@ class ProductImageManager extends RelationManager
                     ->label('Principal')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('sort_order')
+                    ->label('Orden')
                     ->numeric()
                     ->sortable(),
             ])
             ->defaultSort('sort_order')
             ->filters([])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

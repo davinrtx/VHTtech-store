@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ProductResource\RelationManagers;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -17,20 +18,25 @@ class ProductVariantManager extends RelationManager
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('sku')
+                    ->label('SKU')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('price')
+                    ->label('Precio')
                     ->required()
                     ->numeric()
                     ->prefix('USD')
                     ->step(0.01),
                 Forms\Components\TextInput::make('stock')
+                    ->label('Stock')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Activo')
                     ->default(true),
                 Forms\Components\Select::make('attributeValues')
+                    ->label('Atributos')
                     ->relationship('attributeValues', 'value')
                     ->multiple()
                     ->searchable()
@@ -44,15 +50,19 @@ class ProductVariantManager extends RelationManager
             ->recordTitleAttribute('sku')
             ->columns([
                 Tables\Columns\TextColumn::make('sku')
+                    ->label('SKU')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
+                    ->label('Precio')
                     ->money('USD')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
+                    ->label('Stock')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Activo')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('attributeValues.value')
                     ->label('Atributos')
@@ -61,15 +71,15 @@ class ProductVariantManager extends RelationManager
             ])
             ->filters([])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -6,6 +6,7 @@ use App\Models\AttributeValue;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -22,6 +23,7 @@ class AttributeValueManager extends RelationManager
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('value')
+                    ->label('Valor')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -29,11 +31,12 @@ class AttributeValueManager extends RelationManager
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255)
                     ->unique(AttributeValue::class, 'slug', ignoreRecord: true),
                 Forms\Components\TextInput::make('swatch')
-                    ->label($isColor ? 'Color (hex)' : 'Swatch')
+                    ->label($isColor ? 'Color (hex)' : 'Muestra')
                     ->maxLength(255)
                     ->visible(fn () => $isColor),
             ]);
@@ -44,22 +47,25 @@ class AttributeValueManager extends RelationManager
         return $table
             ->recordTitleAttribute('value')
             ->columns([
-                Tables\Columns\TextColumn::make('value'),
-                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('value')
+                    ->label('Valor'),
+                Tables\Columns\TextColumn::make('slug')
+                    ->label('Slug'),
                 Tables\Columns\ColorColumn::make('swatch')
+                    ->label('Color')
                     ->visible(fn () => $this->getOwnerRecord()->type === 'color'),
             ])
             ->filters([])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

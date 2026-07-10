@@ -17,15 +17,19 @@ class OrderItemManager extends RelationManager
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Producto')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('sku')
+                    ->label('SKU')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('price')
+                    ->label('Precio')
                     ->required()
                     ->numeric()
                     ->prefix('USD'),
                 Forms\Components\TextInput::make('quantity')
+                    ->label('Cantidad')
                     ->required()
                     ->numeric(),
             ]);
@@ -36,12 +40,17 @@ class OrderItemManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('sku'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Producto'),
+                Tables\Columns\TextColumn::make('sku')
+                    ->label('SKU'),
                 Tables\Columns\TextColumn::make('price')
+                    ->label('Precio')
                     ->money('USD'),
-                Tables\Columns\TextColumn::make('quantity'),
+                Tables\Columns\TextColumn::make('quantity')
+                    ->label('Cantidad'),
                 Tables\Columns\TextColumn::make('subtotal')
+                    ->label('Subtotal')
                     ->money('USD')
                     ->state(fn ($record) => $record->price * $record->quantity),
             ]);

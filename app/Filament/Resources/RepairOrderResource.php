@@ -8,12 +8,17 @@ use App\Models\RepairOrder;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 
 class RepairOrderResource extends Resource
 {
     protected static ?string $model = RepairOrder::class;
+
+    protected static ?string $modelLabel = 'Reparación';
+    protected static ?string $pluralModelLabel = 'Reparaciones';
+    protected static ?string $navigationLabel = 'Reparaciones';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-wrench';
     protected static string | \UnitEnum | null $navigationGroup = 'Reparaciones';
@@ -26,31 +31,39 @@ class RepairOrderResource extends Resource
                 Forms\Components\Section::make('Información del equipo')
                     ->schema([
                         Forms\Components\TextInput::make('order_number')
+                            ->label('Reparación #')
                             ->disabled()
                             ->dehydrated(false),
                         Forms\Components\Select::make('customer_id')
+                            ->label('Cliente')
                             ->relationship('customer', 'name')
                             ->searchable()
                             ->preload(),
                         Forms\Components\TextInput::make('device_type')
+                            ->label('Tipo de equipo')
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('brand')
+                                    ->label('Marca')
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('model')
+                                    ->label('Modelo')
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('serial')
+                                    ->label('Serial')
                                     ->maxLength(255),
                             ]),
                     ]),
                 Forms\Components\Section::make('Diagnóstico')
                     ->schema([
                         Forms\Components\Textarea::make('issue_description')
+                            ->label('Descripción del problema')
                             ->required()
                             ->columnSpanFull(),
                         Forms\Components\Textarea::make('diagnosed_problem')
+                            ->label('Diagnóstico')
                             ->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Costos y asignación')
@@ -58,14 +71,17 @@ class RepairOrderResource extends Resource
                         Forms\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\Select::make('technician_id')
+                                    ->label('Técnico')
                                     ->relationship('technician', 'name')
                                     ->searchable()
                                     ->preload(),
                                 Forms\Components\TextInput::make('estimated_cost')
+                                    ->label('Costo estimado')
                                     ->numeric()
                                     ->prefix('USD')
                                     ->step(0.01),
                                 Forms\Components\TextInput::make('final_cost')
+                                    ->label('Costo final')
                                     ->numeric()
                                     ->prefix('USD')
                                     ->step(0.01),
@@ -73,6 +89,7 @@ class RepairOrderResource extends Resource
                         Forms\Components\Grid::make(3)
                             ->schema([
                                 Forms\Components\Select::make('status')
+                                    ->label('Estado')
                                     ->options([
                                         'received' => 'Recibido',
                                         'in_diagnosis' => 'En diagnóstico',
@@ -84,17 +101,22 @@ class RepairOrderResource extends Resource
                                     ])
                                     ->required(),
                                 Forms\Components\TextInput::make('warranty_months')
+                                    ->label('Garantía (meses)')
                                     ->numeric()
                                     ->suffix('meses'),
-                                Forms\Components\DateTimePicker::make('received_at'),
+                                Forms\Components\DateTimePicker::make('received_at')
+                                    ->label('Recibido el'),
                             ]),
                         Forms\Components\Grid::make(2)
                             ->schema([
-                                Forms\Components\DateTimePicker::make('ready_at'),
-                                Forms\Components\DateTimePicker::make('delivered_at'),
+                                Forms\Components\DateTimePicker::make('ready_at')
+                                    ->label('Listo el'),
+                                Forms\Components\DateTimePicker::make('delivered_at')
+                                    ->label('Entregado el'),
                             ]),
                     ]),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Notas')
                     ->columnSpanFull(),
             ]);
     }
@@ -104,12 +126,15 @@ class RepairOrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order_number')
+                    ->label('Reparación #')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')
+                    ->label('Cliente')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('device_type')
+                    ->label('Equipo')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('technician.name')
                     ->label('Técnico')
@@ -137,12 +162,14 @@ class RepairOrderResource extends Resource
                         default => $state,
                     }),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
+                    ->label('Estado')
                     ->options([
                         'received' => 'Recibido',
                         'in_diagnosis' => 'En diagnóstico',
@@ -154,7 +181,7 @@ class RepairOrderResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Actions\EditAction::make(),
             ])
             ->bulkActions([]);
     }

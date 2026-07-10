@@ -8,12 +8,17 @@ use App\Models\Order;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
+
+    protected static ?string $modelLabel = 'Pedido';
+    protected static ?string $pluralModelLabel = 'Pedidos';
+    protected static ?string $navigationLabel = 'Pedidos';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-shopping-bag';
     protected static string | \UnitEnum | null $navigationGroup = 'Ventas';
@@ -26,11 +31,14 @@ class OrderResource extends Resource
                 Forms\Components\Section::make('Información del pedido')
                     ->schema([
                         Forms\Components\TextInput::make('order_number')
+                            ->label('Pedido #')
                             ->disabled(),
                         Forms\Components\Select::make('customer_id')
+                            ->label('Cliente')
                             ->relationship('customer', 'name')
                             ->disabled(),
                         Forms\Components\Select::make('status')
+                            ->label('Estado')
                             ->options([
                                 'pending' => 'Pendiente',
                                 'paid' => 'Pagado',
@@ -40,18 +48,22 @@ class OrderResource extends Resource
                             ])
                             ->required(),
                         Forms\Components\TextInput::make('subtotal')
+                            ->label('Subtotal')
                             ->numeric()
                             ->prefix('USD')
                             ->disabled(),
                         Forms\Components\TextInput::make('tax')
+                            ->label('Impuesto')
                             ->numeric()
                             ->prefix('USD')
                             ->disabled(),
                         Forms\Components\TextInput::make('shipping_cost')
+                            ->label('Envío')
                             ->numeric()
                             ->prefix('USD')
                             ->disabled(),
                         Forms\Components\TextInput::make('total')
+                            ->label('Total')
                             ->numeric()
                             ->prefix('USD')
                             ->disabled(),
@@ -71,11 +83,14 @@ class OrderResource extends Resource
                 Forms\Components\Section::make('Direcciones')
                     ->schema([
                         Forms\Components\KeyValue::make('billing_address')
+                            ->label('Dirección de facturación')
                             ->disabled(),
                         Forms\Components\KeyValue::make('shipping_address')
+                            ->label('Dirección de envío')
                             ->disabled(),
                     ]),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Notas')
                     ->columnSpanFull(),
             ]);
     }
@@ -85,9 +100,11 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order_number')
+                    ->label('Pedido #')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer.name')
+                    ->label('Cliente')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
@@ -110,18 +127,21 @@ class OrderResource extends Resource
                     })
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
+                    ->label('Total')
                     ->money('USD')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('ves_total')
                     ->label('VES')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
+                    ->label('Estado')
                     ->options([
                         'pending' => 'Pendiente',
                         'paid' => 'Pagado',
@@ -131,7 +151,7 @@ class OrderResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Actions\ViewAction::make(),
             ])
             ->bulkActions([]);
     }

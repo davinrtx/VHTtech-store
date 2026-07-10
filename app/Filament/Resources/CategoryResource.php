@@ -7,6 +7,7 @@ use App\Models\Category;
 use Filament\Forms;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -14,6 +15,10 @@ use Illuminate\Support\Str;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
+
+    protected static ?string $modelLabel = 'Categoría';
+    protected static ?string $pluralModelLabel = 'Categorías';
+    protected static ?string $navigationLabel = 'Categorías';
 
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-folder';
     protected static string | \UnitEnum | null $navigationGroup = 'Catálogo';
@@ -24,6 +29,7 @@ class CategoryResource extends Resource
         return $schema
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -31,6 +37,7 @@ class CategoryResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
+                    ->label('Slug')
                     ->required()
                     ->maxLength(255)
                     ->unique(Category::class, 'slug', ignoreRecord: true),
@@ -49,8 +56,10 @@ class CategoryResource extends Resource
                         return $query->pluck('name', 'id');
                     }),
                 Forms\Components\Toggle::make('is_active')
+                    ->label('Activo')
                     ->default(true),
                 Forms\Components\TextInput::make('sort_order')
+                    ->label('Orden')
                     ->numeric()
                     ->default(0),
             ]);
@@ -61,6 +70,7 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('parent.name')
@@ -68,8 +78,10 @@ class CategoryResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Activo')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('sort_order')
+                    ->label('Orden')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('products_count')
@@ -79,15 +91,16 @@ class CategoryResource extends Resource
             ])
             ->defaultSort('sort_order')
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_active'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Activo'),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
