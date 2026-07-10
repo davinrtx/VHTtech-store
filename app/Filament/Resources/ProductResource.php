@@ -11,6 +11,9 @@ use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
 use Filament\Tables;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -30,16 +33,16 @@ class ProductResource extends Resource
     {
         return $schema
             ->schema([
-                Forms\Components\Tabs::make('Product')
+                Tabs::make('Product')
                     ->tabs([
-                        Forms\Components\Tabs\Tab::make('General')
+                        Tab::make('General')
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nombre')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                                    ->afterStateUpdated(function ($state, \Filament\Schemas\Components\Utilities\Set $set) {
                                         $set('slug', Str::slug($state));
                                     })
                                     ->columnSpanFull(),
@@ -60,9 +63,15 @@ class ProductResource extends Resource
                                     ->multiple()
                                     ->searchable()
                                     ->preload(),
+                                Forms\Components\Select::make('tags')
+                                    ->label('Etiquetas')
+                                    ->relationship('tags', 'name')
+                                    ->multiple()
+                                    ->searchable()
+                                    ->preload(),
                                 Forms\Components\Textarea::make('short_description')
                                     ->label('Descripción corta')
-                                    ->maxLength(500)
+                                    ->maxLength(1500)
                                     ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('description')
                                     ->label('Descripción')
@@ -73,7 +82,7 @@ class ProductResource extends Resource
                                     ->numeric()
                                     ->prefix('USD')
                                     ->step(0.01),
-                                Forms\Components\Grid::make(3)
+                                Grid::make(3)
                                     ->schema([
                                         Forms\Components\Toggle::make('is_active')
                                             ->label('Activo')
@@ -85,13 +94,13 @@ class ProductResource extends Resource
                                             ->label('Reacondicionado')
                                             ->default(false)
                                             ->reactive()
-                                            ->afterStateUpdated(function ($state, Forms\Set $set) {
+                                            ->afterStateUpdated(function ($state, \Filament\Schemas\Components\Utilities\Set $set) {
                                                 if (!$state) {
                                                     $set('refurbish_grade', null);
                                                 }
                                             }),
                                     ]),
-                                Forms\Components\Grid::make(2)
+                                Grid::make(2)
                                     ->schema([
                                         Forms\Components\Select::make('refurbish_grade')
                                             ->label('Grado')
@@ -100,7 +109,7 @@ class ProductResource extends Resource
                                                 'B' => 'Grado B — Buen estado',
                                                 'C' => 'Grado C — Funcional',
                                             ])
-                                            ->visible(fn (Forms\Get $get) => $get('is_refurbished')),
+                                            ->visible(fn (\Filament\Schemas\Components\Utilities\Get $get) => $get('is_refurbished')),
                                         Forms\Components\TextInput::make('warranty_months')
                                             ->numeric()
                                             ->label('Garantía (meses)')
@@ -150,6 +159,10 @@ class ProductResource extends Resource
                         'C' => 'danger',
                         default => 'gray',
                     }),
+                Tables\Columns\TextColumn::make('tags.name')
+                    ->label('Etiquetas')
+                    ->badge()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado')
                     ->dateTime()
@@ -166,8 +179,14 @@ class ProductResource extends Resource
                 Tables\Filters\SelectFilter::make('brand_id')
                     ->label('Marca')
                     ->relationship('brand', 'name'),
+                Tables\Filters\SelectFilter::make('tags')
+                    ->label('Etiquetas')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->preload(),
             ])
             ->actions([
+                Actions\ViewAction::make(),
                 Actions\EditAction::make(),
                 Actions\DeleteAction::make(),
             ])
@@ -191,6 +210,7 @@ class ProductResource extends Resource
         return [
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
+            'view' => Pages\ViewProduct::route('/{record}'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }

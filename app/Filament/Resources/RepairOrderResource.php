@@ -6,6 +6,8 @@ use App\Filament\Resources\RepairOrderResource\Pages;
 use App\Filament\Resources\RepairOrderResource\RelationManagers\StatusHistoryManager;
 use App\Models\RepairOrder;
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
@@ -28,7 +30,7 @@ class RepairOrderResource extends Resource
     {
         return $schema
             ->schema([
-                Forms\Components\Section::make('Información del equipo')
+                Section::make('Información del equipo')
                     ->schema([
                         Forms\Components\TextInput::make('order_number')
                             ->label('Reparación #')
@@ -43,7 +45,7 @@ class RepairOrderResource extends Resource
                             ->label('Tipo de equipo')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Grid::make(3)
+                        Grid::make(3)
                             ->schema([
                                 Forms\Components\TextInput::make('brand')
                                     ->label('Marca')
@@ -56,7 +58,7 @@ class RepairOrderResource extends Resource
                                     ->maxLength(255),
                             ]),
                     ]),
-                Forms\Components\Section::make('Diagnóstico')
+                Section::make('Diagnóstico')
                     ->schema([
                         Forms\Components\Textarea::make('issue_description')
                             ->label('Descripción del problema')
@@ -66,9 +68,9 @@ class RepairOrderResource extends Resource
                             ->label('Diagnóstico')
                             ->columnSpanFull(),
                     ]),
-                Forms\Components\Section::make('Costos y asignación')
+                Section::make('Costos y asignación')
                     ->schema([
-                        Forms\Components\Grid::make(3)
+                        Grid::make(3)
                             ->schema([
                                 Forms\Components\Select::make('technician_id')
                                     ->label('Técnico')
@@ -86,7 +88,7 @@ class RepairOrderResource extends Resource
                                     ->prefix('USD')
                                     ->step(0.01),
                             ]),
-                        Forms\Components\Grid::make(3)
+                        Grid::make(3)
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label('Estado')
@@ -107,7 +109,7 @@ class RepairOrderResource extends Resource
                                 Forms\Components\DateTimePicker::make('received_at')
                                     ->label('Recibido el'),
                             ]),
-                        Forms\Components\Grid::make(2)
+                        Grid::make(2)
                             ->schema([
                                 Forms\Components\DateTimePicker::make('ready_at')
                                     ->label('Listo el'),

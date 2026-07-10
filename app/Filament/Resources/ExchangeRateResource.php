@@ -49,6 +49,7 @@ class ExchangeRateResource extends Resource
                     ->options([
                         'manual' => 'Manual',
                         'bcv' => 'BCV',
+                        'dolarapi' => 'DolarApi.com',
                     ])
                     ->default('manual')
                     ->required(),

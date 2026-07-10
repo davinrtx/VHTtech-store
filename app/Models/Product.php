@@ -63,6 +63,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);

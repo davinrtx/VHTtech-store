@@ -12,7 +12,7 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'sku', 'price', 'stock', 'is_active'];
+    protected $fillable = ['product_id', 'sku', 'image', 'price', 'stock', 'is_active'];
 
     protected function casts(): array
     {

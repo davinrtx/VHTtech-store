@@ -6,6 +6,8 @@ use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers\OrderItemManager;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
@@ -28,7 +30,7 @@ class OrderResource extends Resource
     {
         return $schema
             ->schema([
-                Forms\Components\Section::make('Información del pedido')
+                Section::make('Información del pedido')
                     ->schema([
                         Forms\Components\TextInput::make('order_number')
                             ->label('Pedido #')
@@ -67,7 +69,7 @@ class OrderResource extends Resource
                             ->numeric()
                             ->prefix('USD')
                             ->disabled(),
-                        Forms\Components\Grid::make(2)
+                        Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('usd_to_ves_rate')
                                     ->label('Tasa USD/VES')
@@ -80,7 +82,7 @@ class OrderResource extends Resource
                                     ->disabled(),
                             ]),
                         ]),
-                Forms\Components\Section::make('Direcciones')
+                Section::make('Direcciones')
                     ->schema([
                         Forms\Components\KeyValue::make('billing_address')
                             ->label('Dirección de facturación')

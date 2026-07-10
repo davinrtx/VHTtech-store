@@ -17,10 +17,15 @@ class ProductImageManager extends RelationManager
     {
         return $schema
             ->schema([
-                Forms\Components\TextInput::make('path')
-                    ->label('Ruta')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\FileUpload::make('path')
+                    ->label('Imagen')
+                    ->image()
+                    ->directory('products')
+                    ->visibility('public')
+                    ->imagePreviewHeight(150)
+                    ->panelAspectRatio('4:3')
+                    ->panelLayout('integrated')
+                    ->required(),
                 Forms\Components\Toggle::make('is_primary')
                     ->label('Principal'),
                 Forms\Components\TextInput::make('sort_order')
@@ -49,7 +54,8 @@ class ProductImageManager extends RelationManager
             ->defaultSort('sort_order')
             ->filters([])
             ->headerActions([
-                Actions\CreateAction::make(),
+                Actions\CreateAction::make()
+                    ->label('Agregar imágenes'),
             ])
             ->actions([
                 Actions\EditAction::make(),

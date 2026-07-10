@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProductResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Actions;
@@ -20,18 +21,28 @@ class ProductVariantManager extends RelationManager
                 Forms\Components\TextInput::make('sku')
                     ->label('SKU')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->label('Precio')
-                    ->required()
-                    ->numeric()
-                    ->prefix('USD')
-                    ->step(0.01),
-                Forms\Components\TextInput::make('stock')
-                    ->label('Stock')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true),
+                Forms\Components\FileUpload::make('image')
+                    ->label('Imagen de variante')
+                    ->image()
+                    ->directory('variants')
+                    ->visibility('public')
+                    ->imagePreviewHeight(100),
+                Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('price')
+                            ->label('Precio')
+                            ->required()
+                            ->numeric()
+                            ->prefix('USD')
+                            ->step(0.01),
+                        Forms\Components\TextInput::make('stock')
+                            ->label('Stock')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
+                    ]),
                 Forms\Components\Toggle::make('is_active')
                     ->label('Activo')
                     ->default(true),
@@ -53,6 +64,10 @@ class ProductVariantManager extends RelationManager
                     ->label('SKU')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Imagen')
+                    ->size(50)
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('price')
                     ->label('Precio')
                     ->money('USD')
@@ -71,7 +86,8 @@ class ProductVariantManager extends RelationManager
             ])
             ->filters([])
             ->headerActions([
-                Actions\CreateAction::make(),
+                Actions\CreateAction::make()
+                    ->label('Agregar variante'),
             ])
             ->actions([
                 Actions\EditAction::make(),
