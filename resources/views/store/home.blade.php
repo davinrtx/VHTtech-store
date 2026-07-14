@@ -8,15 +8,15 @@
     .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.875rem}
     .hero-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:300px;display:flex;align-items:center;padding:2.5rem 3.125rem;color:#fff;text-decoration:none}
     .hero-card:hover{color:#fff}
-    .hero-card.primary{background:linear-gradient(135deg,var(--color-primary) 0%,#0a3a6e 100%)}
-    .hero-card.secondary{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
+    .hero-card.primary{background:linear-gradient(135deg,#333e48 0%,#1a1a2e 100%)}
+    .hero-card.secondary{background:linear-gradient(135deg,#2c3e50 0%,#1a252f 100%)}
     .hero-card .hero-content{max-width:70%}
     .hero-card .hero-sub{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:.625rem;opacity:.8}
     .hero-card .hero-title{font-size:1.875rem;font-weight:800;line-height:1.2;margin-bottom:1rem}
     .hero-card .hero-desc{font-size:.9375rem;margin-bottom:1.5rem;opacity:.8;line-height:1.5}
-    .hero-card .hero-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.875rem;background:var(--color-secondary);color:var(--color-main-text);border-radius:4px;font-weight:600;font-size:.875rem;text-decoration:none;transition:opacity .15s}
-    .hero-card .hero-btn:hover{opacity:.9;color:var(--color-main-text)}
-    .hero-card .hero-highlight{color:var(--color-secondary)}
+    .hero-card .hero-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.875rem;background:var(--color-primary);color:#333e48;border-radius:4px;font-weight:600;font-size:.875rem;text-decoration:none;transition:opacity .15s}
+    .hero-card .hero-btn:hover{opacity:.9;color:#333e48}
+    .hero-card .hero-highlight{color:var(--color-primary)}
 
     /* SECTIONS */
     .section{padding:2.5rem 0}
@@ -32,12 +32,12 @@
     .category-card .cat-name{font-size:.8125rem;font-weight:600;text-align:center;line-height:1.2}
 
     .banner-section{padding:1.25rem 0}
-    .banner-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:220px;display:flex;align-items:center;padding:2.5rem;color:#fff;background:linear-gradient(135deg,#0d2b50,#1a4a7a)}
+    .banner-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:220px;display:flex;align-items:center;padding:2.5rem;color:#fff;background:linear-gradient(135deg,#333e48,#1a1a2e)}
     .banner-card .banner-content{max-width:55%}
     .banner-card .banner-sub{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;opacity:.7;margin-bottom:.5rem}
     .banner-card .banner-title{font-size:1.5rem;font-weight:700;line-height:1.2;margin-bottom:1rem}
-    .banner-card .banner-btn{display:inline-flex;align-items:center;gap:.375rem;padding:.625rem 1.5rem;background:var(--color-secondary);color:var(--color-main-text);border-radius:4px;font-weight:600;font-size:.8125rem;text-decoration:none;transition:opacity .15s}
-    .banner-card .banner-btn:hover{opacity:.9;color:var(--color-main-text)}
+    .banner-card .banner-btn{display:inline-flex;align-items:center;gap:.375rem;padding:.625rem 1.5rem;background:var(--color-primary);color:#333e48;border-radius:4px;font-weight:600;font-size:.8125rem;text-decoration:none;transition:opacity .15s}
+    .banner-card .banner-btn:hover{opacity:.9;color:#333e48}
     .banner-card .banner-visual{position:absolute;right:1.875rem;top:50%;transform:translateY(-50%);font-size:5rem;opacity:.15}
 
     .features-bar{background:var(--color-background);border-top:1px solid var(--color-theme-border);border-bottom:1px solid var(--color-theme-border);padding:1.5625rem 0}

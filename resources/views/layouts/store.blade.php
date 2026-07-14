@@ -73,75 +73,72 @@
         :root{
             --color-background: #fff;
             --color-main-text: #021523;
-            --color-text-light: #818ea0;
-            --color-primary: #041e42;
-            --color-secondary: #38bdf8;
-            --color-link: #0070dc;
-            --color-form-border: #d9dde3;
+            --color-text-light: #7c7c7c;
+            --color-primary: #fed700;
+            --color-secondary: #333e48;
+            --color-link: #333e48;
+            --color-form-border: #ddd;
             --color-form-placeholder: #9aa5b3;
             --color-theme-danger: #ef262c;
             --color-theme-warning: #ff5c00;
             --color-theme-info: #e8e8e8;
-            --color-theme-border: #e5e8ec;
+            --color-theme-border: #e5e5e5;
             --color-theme-success: #00a046;
-            --color-theme-light: #f2f3f5;
+            --color-theme-light: #f8f9fa;
             --color-product-fade-border: #e0e5ea;
-            --color-shop-button: #00a046;
-            --color-shop-button-active: #037535;
+            --color-shop-button: #fed700;
+            --color-shop-button-active: #e6c200;
             --font-primary: "Inter",-apple-system,BlinkMacSystemFont,sans-serif;
             --font-secondary: "Inter",sans-serif;
-            --border-radius: 7px;
+            --border-radius: 10px;
         }
         body{font-family:var(--font-primary);color:var(--color-main-text);background:var(--color-background);-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.4}
         a{color:var(--color-link);text-decoration:none}
         a:hover{color:var(--color-main-text)}
-        .container{max-width:1290px;margin:0 auto;padding:0 1rem}
-        .site-header .custom-color-dark{color:#fff;background-color:#031424}
-        .site-header .custom-color-dark .site-departments-wrapper > a{background-color:var(--color-secondary)!important}
-        .site-header .custom-color-dark .input-search-button button{color:var(--color-main-text);background-color:var(--color-secondary);border-color:var(--color-secondary)}
+        .container{max-width:1430px;margin:0 auto;padding:0 1rem}
+        /* ELECTRO V5 — top bar yellow, navigation white */
 
         /* PREVIEW BANNER */
-        .preview-banner{background:linear-gradient(135deg,#041e42,#0a3366);color:#fff;text-align:center;padding:.5rem;font-size:.75rem;letter-spacing:.5px}
-        .preview-banner span{color:var(--color-secondary);font-weight:700}
+        .preview-banner{background:var(--color-secondary);color:#fff;text-align:center;padding:.5rem;font-size:.75rem;letter-spacing:.5px}
+        .preview-banner span{color:var(--color-primary);font-weight:700}
 
-        /* === TOP BAR === */
-        .site-header .header-top{position:relative;font-size:.75rem;z-index:11}
-        .site-header .header-top .header-wrapper{display:flex;align-items:center;position:relative}
-        .site-header .header-top .column.left{display:flex;align-items:center}
-        .site-header .header-top .column.right{margin-left:auto;display:flex;align-items:center}
-        .site-header .header-top .site-menu .menu{display:flex;list-style:none;gap:0}
-        .site-header .header-top .site-menu .menu > li > a{display:block;padding:.75rem 1rem;color:rgba(255,255,255,.7);text-decoration:none;transition:all .1s}
-        .site-header .header-top .site-menu .menu > li > a:hover{color:rgba(255,255,255,.8)}
-        .site-header .header-top .site-switcher{display:inline-flex;align-items:center;flex-shrink:0}
-        .site-header .header-top .site-switcher > span{margin-right:.375rem}
-        .site-header .header-top .column.right .site-menu + .site-switcher{margin-left:1.25rem;padding-left:1.25rem;position:relative}
-        .site-header .header-top .column.right .site-menu + .site-switcher::before{content:"";position:absolute;width:1px;height:.9375rem;background:currentColor;opacity:.1;left:0}
+        /* === TOP BAR (Electro V5 — yellow #fed700) === */
+        .top-bar{background:#fed700;border-bottom:1px solid #e5e5e5;font-size:.8125rem;position:relative;z-index:11}
+        .top-bar .top-bar-inner{display:flex;align-items:center;justify-content:space-between}
+        .top-bar .top-bar-menu{display:flex;list-style:none;align-items:center;margin:0;padding:0}
+        .top-bar .top-bar-menu li{display:flex;align-items:center}
+        .top-bar .top-bar-menu li a{display:block;padding:.5rem .75rem;color:#333e48;text-decoration:none;font-size:.8125rem;transition:color .1s;font-weight:500}
+        .top-bar .top-bar-menu li a:hover{color:var(--color-primary)}
+        .top-bar .top-bar-menu li+li::before{content:"|";color:#cca200;font-size:.75rem;padding:0}
+        .top-bar .top-bar-switcher{display:flex;align-items:center;padding:.5rem .75rem;font-size:.8125rem;color:#333e48;font-weight:500}
+        .top-bar .top-bar-switcher+.top-bar-switcher::before{content:"|";color:#cca200;margin-right:.75rem;font-size:.75rem}
 
-        /* === MAIN HEADER === */
+        /* === MAIN HEADER (masthead) === */
         .site-header .header-main{position:relative;color:var(--color-main-text);z-index:10;background:var(--color-background)}
         .site-header .header-main a{color:currentColor;transition:all .1s}
-        .site-header .header-main.height-padding .header-wrapper{padding-top:1.25rem;padding-bottom:1.25rem}
-        .site-header .header-main .header-wrapper{display:flex;align-items:center}
-        .site-header .header-main .column.left{display:flex;align-items:center}
-        .site-header .header-main .column.right{flex:1;display:flex;align-items:center}
-        .site-header .header-main .site-brand{flex-shrink:0;margin-right:2.5rem}
-        .site-header .site-brand a{font-size:1.75rem;font-weight:800;text-decoration:none;color:var(--color-primary);letter-spacing:-.5px}
-        .site-brand .accent{color:var(--color-secondary)}
+        .site-header .header-main .masthead{padding-top:9px;padding-bottom:9px}
+        .masthead{display:flex;align-items:center}
+        .masthead .header-logo-area{flex:0 0 230px;max-width:230px;min-width:230px;flex-shrink:0}
+        .masthead .site-brand{flex-shrink:0;margin-right:2.5rem}
+        .masthead .site-brand a{font-size:1.75rem;font-weight:800;text-decoration:none;color:var(--color-primary);letter-spacing:-.5px;white-space:nowrap}
+        .masthead .site-brand .accent{color:var(--color-secondary)}
+        .masthead .navbar-search{flex:1;padding:0 1.25rem}
+        .masthead .header-icons{display:flex;align-items:center;flex-shrink:0}
 
-        /* SEARCH */
+        /* SEARCH — Electro V5 (no border, dark button) */
         .site-search{width:100%}
         .site-search .input-group{display:inline-flex;align-items:center;flex-shrink:0;width:100%}
         .site-search .input-group > *{position:relative;display:inline-flex;align-items:center}
         .site-search .input-group > *.input-search-field{flex:1}
-        .site-search select{width:auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:0;height:2.75rem;padding:0 .9375rem;font-size:.875rem;border:1px solid var(--color-form-border);background:var(--color-background);color:var(--color-main-text);outline:none;cursor:pointer}
+        .site-search select{width:auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:0;height:2.75rem;padding:0 .9375rem;font-size:.875rem;border:0;background:var(--color-background);color:var(--color-main-text);outline:none;cursor:pointer}
         @media(min-width:1200px){.site-search select{height:3.125rem}}
-        .site-search input[type=search]{border-radius:0;padding-left:3.625rem;height:2.75rem;width:100%;border:1px solid var(--color-form-border);border-left:0;font-size:.875rem;color:var(--color-main-text);outline:none}
+        .site-search input[type=search]{border-radius:0;padding-left:3.625rem;height:2.75rem;width:100%;border:0;font-size:.875rem;color:var(--color-main-text);outline:none;background:#f8f9fa}
         .site-search input[type=search]::placeholder{color:var(--color-form-placeholder)}
         @media(min-width:1200px){.site-search input[type=search]{height:3.125rem}}
         .site-search i{position:absolute;font-size:1.5rem;left:.75rem;top:50%;transform:translateY(-50%);color:var(--color-form-placeholder);pointer-events:none;z-index:1;display:flex;align-items:center}
         @media(min-width:1200px){.site-search i{font-size:1.75rem}}
-        .site-search button{border-top-left-radius:0;border-bottom-left-radius:0;height:2.75rem;padding:0 1.5625rem;background:var(--color-secondary);color:var(--color-main-text);border:1px solid var(--color-secondary);font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s;font-family:var(--font-primary)}
-        .site-search button:hover{opacity:.9}
+        .site-search button{border-top-left-radius:0;border-bottom-left-radius:0;height:2.75rem;padding:0 1.5625rem;background:#333e48;color:#fff;border:0;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s;font-family:var(--font-primary)}
+        .site-search button:hover{opacity:.85}
         @media(min-width:1200px){.site-search button{height:3.125rem}}
 
         /* === SEARCH SUGGESTIONS === */
@@ -204,30 +201,27 @@
         .header-addons a{display:inline-flex;align-items:center;text-decoration:none;color:currentColor}
         .header-addons-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;font-size:1.5rem;width:2.25rem;height:2.25rem}
         .header-addons-icon svg{width:1.375rem;height:1.375rem}
-        .header-addons-icon .button-count{position:absolute;display:inline-flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:700;min-width:1.125rem;height:1.125rem;top:2px;right:-3px;color:var(--color-main-text);background:var(--color-secondary);border-radius:50%}
+        .header-addons-icon .button-count{position:absolute;display:inline-flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:700;min-width:1.125rem;height:1.125rem;top:2px;right:-3px;color:#333e48;background:#fff;border-radius:50%}
         .header-addons-text{display:flex;flex-direction:column;margin-left:.625rem;line-height:1.1}
         .header-addons-text .sub-text{display:block;font-size:.6875rem;opacity:.5;margin-bottom:2px}
         .header-addons-text .primary-text{font-size:.9375rem;font-weight:500}
 
-        /* === HEADER NAV === */
-        .site-header .header-nav{color:var(--color-main-text)}
-        .site-header .header-nav a{color:currentColor;transition:all .1s}
-        .site-header .header-nav .header-wrapper{display:flex;align-items:center}
-        .site-header .header-nav .column.left{display:flex;align-items:center}
-        .site-header .header-nav .column.right{margin-left:auto;display:flex;align-items:center}
-        .site-header .header-nav .site-menu .menu > li > a:hover{opacity:.7}
-        .site-header .header-nav .site-menu .menu > li.menu-item-has-children:hover > a{opacity:.7}
+        /* === ELECTRO V5 NAVIGATION (full-width, white, box-shadow) === */
+        .electro-navigation-v5{width:100vw;position:relative;margin-left:calc(-50vw + 50%);background:#fff;box-shadow:0 1px 2px 0 rgba(0,0,0,.16);border-bottom:1px solid #d7d7d7}
+        .electro-navigation-v5 .electro-navigation{display:flex;align-items:center}
+        .electro-navigation-v5 .departments-menu-v2{flex:0 0 230px;max-width:230px;min-width:230px}
 
-        .site-departments.large{position:relative;margin-right:1.25rem}
+        .site-departments.large{position:relative}
         .site-departments-wrapper{display:flex;align-items:center}
-        .site-departments-wrapper .all-categories{display:flex;align-items:center;gap:.625rem;padding:.75rem 1.125rem;background:var(--color-secondary);color:var(--color-main-text);text-decoration:none;font-size:.8125rem;font-weight:600;min-height:54px}
-        .site-departments-wrapper .all-categories .departments-icon{font-size:1.25rem;line-height:1}
-        .site-departments-wrapper .all-categories .departments-arrow{margin-left:.625rem;font-size:.75rem;line-height:1}
+        .departments-menu-v2-title{display:flex;align-items:center;gap:.625rem;padding:.75rem 1.125rem;background:#fff;color:#333e48;text-decoration:none;font-size:.8125rem;font-weight:600;min-height:54px;border:none;line-height:35px;border-radius:0}
+        .departments-menu-v2-title .departments-icon{font-size:1.25rem;line-height:1}
+        .departments-menu-v2-title .departments-arrow{margin-left:.625rem;font-size:.75rem;line-height:1}
 
-        /* === CATEGORIES DROPDOWN PANEL === */
+        /* === CATEGORIES DROPDOWN PANEL (Electro style) === */
         .site-departments-panel{
             position:absolute;top:100%;left:0;width:280px;
-            background:#fff;border-radius:0 0 7px 7px;
+            background:#fff;border-radius:0 0 var(--border-radius) var(--border-radius);
+            border-top:2px solid var(--color-primary);
             box-shadow:0 8px 20px rgba(0,0,0,.15);z-index:1000;
             display:none;color:var(--color-main-text)
         }
@@ -236,12 +230,12 @@
         .departments-menu{list-style:none;padding:0;margin:0}
         .departments-menu .department-item{position:relative}
         .departments-menu .department-item > a{
-            display:flex;align-items:center;padding:.75rem 1.25rem;
+            display:flex;align-items:center;padding:.85rem 1.25rem;
             font-size:.875rem;font-weight:500;color:var(--color-main-text);
             text-decoration:none;border-bottom:1px solid var(--color-theme-border);
             transition:background .15s
         }
-        .departments-menu .department-item > a:hover{background:var(--color-theme-light)}
+        .departments-menu .department-item > a:hover{background:#f5f5f5}
         .departments-menu .department-item:last-child > a{border-bottom:none}
         .departments-menu .department-item.has-children > a::after{
             content:"";margin-left:auto;width:16px;height:16px;flex-shrink:0;
@@ -249,7 +243,7 @@
         }
         .department-submenu{
             position:absolute;top:0;left:100%;width:240px;
-            background:#fff;border-radius:7px;
+            background:#fff;border-radius:var(--border-radius);
             box-shadow:0 8px 20px rgba(0,0,0,.15);
             list-style:none;padding:.5rem 0;margin:0;display:none
         }
@@ -258,13 +252,12 @@
             display:block;padding:.5rem 1.25rem;font-size:.8125rem;
             color:var(--color-main-text);text-decoration:none;transition:background .15s
         }
-        .department-submenu li a:hover{background:var(--color-theme-light)}
+        .department-submenu li a:hover{background:#f5f5f5}
 
-        .site-header .site-menu.primary .menu{display:flex;list-style:none;margin-left:-.625rem}
-        .site-header .site-menu.primary .menu > li{margin-right:.625rem}
-        .site-header .site-menu.primary .menu > li > a{display:flex;align-items:center;height:54px;padding:0 .625rem;font-size:15px;font-weight:500;text-decoration:none;color:#fff;transition:opacity .15s}
-        .site-header .site-menu.primary a{font-size:15px;font-weight:500}
-        .site-header .site-menu.primary .menu > li > a:hover{opacity:.8}
+        .secondary-nav .menu{display:flex;list-style:none;margin:0;padding:0}
+        .secondary-nav .menu > li{margin:0}
+        .secondary-nav .menu > li > a{display:flex;align-items:center;height:54px;padding:0 .9375rem;font-size:13px;font-weight:400;text-decoration:none;color:var(--color-main-text);transition:color .15s;line-height:35px}
+        .secondary-nav .menu > li > a:hover{color:var(--color-primary)}
 
         /* DISCOUNT BANNER */
 
@@ -275,7 +268,7 @@
         .product-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
         .product-card .card-badge{position:absolute;top:.75rem;left:.75rem;z-index:2;display:flex;flex-direction:column;gap:.375rem}
         .product-card .card-badge span{display:inline-block;padding:.2rem .5rem;border-radius:3px;font-size:.6875rem;font-weight:700;text-transform:uppercase;line-height:1.2}
-        .product-card .card-badge .feat{background:#fef3cd;color:#856404}
+        .product-card .card-badge .feat{background:var(--color-primary);color:#333e48}
         .product-card .card-badge .refurb{background:var(--color-reacondicionado,#e8daef);color:var(--color-reacondicionado-text,#6c3483)}
         .product-card .card-thumb{background:var(--color-theme-light);aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative}
         .product-card .card-thumb img{max-width:100%;max-height:100%;object-fit:contain}
@@ -289,10 +282,13 @@
         .product-card .card-body .card-price del{font-size:70%;color:var(--color-text-light);opacity:.5;font-weight:400}
         .product-card .card-body .card-meta{font-size:.6875rem;color:var(--color-text-light);margin-top:.25rem}
         .product-card .card-actions{display:flex;gap:.375rem;padding:.625rem 1rem 1rem;border-top:1px solid var(--color-theme-border)}
-        .product-card .card-actions .btn-cart{flex:1;height:2.25rem;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--color-shop-button);color:#fff;border:none;cursor:pointer;font-size:.75rem;font-weight:600;gap:.375rem;text-decoration:none;transition:background .15s}
-        .product-card .card-actions .btn-cart:hover{background:var(--color-shop-button-active);color:#fff}
+        .product-card .card-actions .btn-cart{flex:1;height:2.25rem;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--color-shop-button);color:#333e48;border:none;cursor:pointer;font-size:.75rem;font-weight:600;gap:.375rem;text-decoration:none;transition:background .15s}
+        .product-card .card-actions .btn-cart:hover{background:var(--color-shop-button-active);color:#333e48}
         .product-card .card-actions .btn-wish{width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-theme-border);border-radius:4px;background:none;cursor:pointer;color:var(--color-text-light);transition:all .15s}
         .product-card .card-actions .btn-wish:hover{border-color:var(--color-theme-danger);color:var(--color-theme-danger)}
+
+        /* Section titles with Electro accent underline */
+        .section-title h2::after{content:'';display:block;border-bottom:2px solid var(--color-primary);width:80px;margin-top:4px}
 
         @media(max-width:992px){
             .product-grid{grid-template-columns:repeat(2,1fr)}
@@ -303,11 +299,6 @@
 
         @yield('extra_styles')
 
-        /* DARK HEADER OVERRIDES — must come after header styles */
-        .site-header .custom-color-dark .site-menu .menu > li > a:hover{color:var(--color-secondary)}
-        .site-header .custom-color-dark .site-menu.primary .menu > li > a:hover{color:var(--color-secondary)}
-        .site-header .custom-color-dark .site-menu .menu > li.menu-item-has-children:hover > a{color:var(--color-secondary)}
-
         /* === BREADCRUMB (product) === */
         .woocommerce-breadcrumb{padding:1.25rem 0;font-size:.8125rem;color:var(--color-text-light)}
         .woocommerce-breadcrumb a{color:var(--color-text-light);text-decoration:none}
@@ -316,14 +307,14 @@
 
         /* FOOTER */
         .site-footer{margin-top:7.1875rem}
-        .footer-newsletter{background:var(--color-primary);padding:3.75rem 0;color:#fff}
+        .footer-newsletter{background:var(--color-primary);padding:3.75rem 0;color:#333e48}
         .footer-newsletter .site-newsletter{display:flex;justify-content:space-between;align-items:center}
         .footer-newsletter .entry-title{font-size:1.375rem;font-weight:600}
-        .footer-newsletter .entry-description p{color:var(--color-text-light);margin-bottom:0}
-        .footer-newsletter .entry-description p strong{color:var(--color-secondary)}
+        .footer-newsletter .entry-description p{color:#555;margin-bottom:0}
+        .footer-newsletter .entry-description p strong{color:#333e48}
         .footer-newsletter .subscribe-form{display:flex;max-width:33.125rem;width:100%}
         .footer-newsletter .subscribe-form input{height:3.125rem;border:0;padding:0 1.25rem;flex:1;border-radius:var(--border-radius) 0 0 var(--border-radius);font-family:var(--font-primary);font-size:.875rem;outline:none}
-        .footer-newsletter .subscribe-form button{height:3.125rem;padding:0 1.875rem;border:0;border-radius:0 var(--border-radius) var(--border-radius) 0;background:var(--color-secondary);color:var(--color-main-text);font-weight:600;font-size:.875rem;cursor:pointer;font-family:var(--font-primary)}
+        .footer-newsletter .subscribe-form button{height:3.125rem;padding:0 1.875rem;border:0;border-radius:0 var(--border-radius) var(--border-radius) 0;background:var(--color-secondary);color:#fff;font-weight:600;font-size:.875rem;cursor:pointer;font-family:var(--font-primary)}
         .footer-widgets{padding:6.25rem 0;background:var(--color-theme-light)}
         .footer-widgets .widget-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.875rem}
         .footer-widgets .widget-title{font-size:.875rem;font-weight:600;margin-bottom:.9375rem;color:var(--color-main-text)}
@@ -332,24 +323,25 @@
         .footer-widgets .widget ul li+li{margin-top:.5rem}
         .footer-widgets .widget ul li a{text-decoration:none;color:currentColor;transition:color .1s}
         .footer-widgets .widget ul li a:hover{color:var(--color-main-text);text-decoration:underline}
-        .footer-details{color:#fff;background:var(--color-primary)}
-        .footer-details .container{padding:3.75rem 1rem;border-top:1px solid #2c4260;border-bottom:1px solid #2c4260}
+        .footer-details{color:#333e48;background:#f8f8f8}
+        .footer-details .container{padding:3.75rem 1rem;border-top:1px solid var(--color-theme-border);border-bottom:1px solid var(--color-theme-border)}
         .footer-details .site-details{display:flex;align-items:center;flex-flow:row wrap}
         .footer-details .site-details .site-brand-footer{margin-right:2.5rem}
-        .footer-details .site-details .brand-text{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;color:#fff}
-        .footer-details .site-details .brand-text .accent{color:var(--color-secondary)}
+        .footer-details .site-details .brand-text{font-size:1.5rem;font-weight:800;letter-spacing:-.5px;color:var(--color-main-text)}
+        .footer-details .site-details .brand-text .accent{color:var(--color-primary)}
         .footer-details .site-details .tags{display:flex;flex-flow:row wrap;list-style:none;padding:0;margin:0}
         .footer-details .site-details .tags li{position:relative;font-size:.8125rem;color:var(--color-text-light)}
         .footer-details .site-details .tags li::after{content:"|";margin:0 .5rem;color:var(--color-text-light)}
         .footer-details .site-details .tags li:last-child::after{display:none}
         .footer-details .site-details .tags li a{text-decoration:none;color:var(--color-text-light)}
-        .footer-details .site-details .tags li a:hover{color:#fff}
+        .footer-details .site-details .tags li a:hover{color:var(--color-main-text)}
         .footer-details .site-details .site-social{margin-left:auto}
-        .footer-details .site-details .site-social a{display:inline-flex;width:2rem;height:2rem;border-radius:50%;background:#10315f;color:#fff;align-items:center;justify-content:center;text-decoration:none;margin-left:.5rem;font-size:.875rem}
-        .footer-copyright .container{padding:1.875rem 1rem}
-        .footer-copyright.bordered .container{border-top:1px solid var(--color-theme-border)}
+        .footer-details .site-details .site-social a{display:inline-flex;width:2rem;height:2rem;border-radius:50%;background:#e0e0e0;color:#333e48;align-items:center;justify-content:center;text-decoration:none;margin-left:.5rem;font-size:.875rem;transition:background .15s}
+        .footer-details .site-details .site-social a:hover{background:var(--color-primary)}
+        .footer-copyright{background:#eaeaea;padding:1.875rem 0}
+        .footer-copyright .container{padding:0 1rem}
         .footer-copyright .footer-bottom{display:flex;align-items:center;justify-content:space-between}
-        .footer-copyright .site-copyright{font-size:.75rem;color:var(--color-text-light)}
+        .footer-copyright .site-copyright{font-size:.75rem;color:#333e48}
 
         @media(max-width:992px){
             .footer-widgets .widget-row{grid-template-columns:repeat(2,1fr)}
@@ -358,7 +350,9 @@
             .site-search select{display:none}
             .header-addons-text,.site-brand{margin-right:0}
             .header-addons:first-of-type{margin-left:.625rem}
-            .site-header .site-departments-wrapper{display:none}
+            .masthead .header-logo-area{flex:0 0 auto;max-width:none;min-width:0}
+            .masthead .navbar-search{padding:0 .625rem}
+            .electro-navigation-v5 .departments-menu-v2{display:none}
             .footer-newsletter .site-newsletter{flex-direction:column;align-items:stretch;gap:1rem}
             .footer-newsletter .subscribe-form{max-width:100%}
         }
@@ -367,117 +361,113 @@
 </head>
 <body>
 
-<div class="preview-banner">🛒 <span>Vista previa</span> — Diseño basado en Machic Theme.</div>
+<div class="preview-banner">🛒 <span>electroV5</span> — Diseño premium Electro.</div>
 
-{{-- TOP BAR --}}
+{{-- TOP BAR (Electro light style) --}}
 <div class="site-header">
-<div class="header-top custom-color-dark">
+<div class="top-bar">
     <div class="container">
-        <div class="header-wrapper">
-            <div class="column align-center left">
-                <nav class="site-menu horizontal">
-                    <ul class="menu">
-                        <li><a href="#">Sobre nosotros</a></li>
-                        <li><a href="#">Atención al cliente</a></li>
-                        <li><a href="#">Ubicación</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="column align-center right">
-                <nav class="site-menu horizontal">
-                    <ul class="menu">
-                        <li><a href="#">Seguimiento</a></li>
-                        <li><a href="#">Ayuda</a></li>
-                    </ul>
-                </nav>
-                <div class="site-switcher"><span>USD</span></div>
-                <div class="site-switcher"><span>ES</span></div>
+        <div class="top-bar-inner">
+            <ul class="top-bar-menu">
+                <li><a href="#">Sobre nosotros</a></li>
+                <li><a href="#">Atención al cliente</a></li>
+                <li><a href="#">Ubicación</a></li>
+            </ul>
+            <div style="display:flex;align-items:center">
+                <ul class="top-bar-menu">
+                    <li><a href="#">Seguimiento</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+                <span class="top-bar-switcher">USD</span>
+                <span class="top-bar-switcher">ES</span>
             </div>
         </div>
     </div>
 </div>
 
-{{-- MAIN HEADER --}}
+{{-- MAIN HEADER (masthead — Electro V5) --}}
 <div class="header-main height-padding">
     <div class="container">
-        <div class="header-wrapper">
-            <div class="column align-center left">
+        <div class="masthead header-wrapper row align-items-center">
+            <div class="header-logo-area">
                 <div class="site-brand"><a href="{{ route('home') }}">VHT<span class="accent">tech</span></a></div>
             </div>
-            <div class="column align-center right">
-                <div class="header-form site-search"
-                     x-data="searchSuggestions()"
-                     @click.outside="open = false"
-                     @keydown.escape.prevent="open = false">
-                    <form class="search-form" role="search" method="get" action="#" @submit.prevent="submitSearch()">
-                        <div class="input-group">
-                            <div class="input-search-addon">
-                                <select class="form-select custom-width" name="product_cat" id="categories"
-                                        x-model="category">
-                                    <option value="" selected>Todas las categorías</option>
-                                    @foreach($headerCategories as $category)
-                                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="input-search-field search-wrapper">
-                                <i class="klbth-icon-search">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                                </i>
-                                <input type="search" class="form-control" name="s"
-                                       placeholder="Busca tu producto favorito..."
-                                       autocomplete="off"
-                                       x-model="query"
-                                       @input.debounce.300ms="fetchSuggestions()"
-                                       @keydown.down.prevent="selectedIndex = Math.min(selectedIndex + 1, totalResults - 1)"
-                                       @keydown.up.prevent="selectedIndex = Math.max(selectedIndex - 1, 0)"
-                                       @keydown.enter.prevent="selectSuggestion()">
 
-                                {{-- SUGGESTIONS DROPDOWN --}}
-                                <div class="search-suggestions" x-show="open && query.length >= 2" x-cloak>
-                                    <div class="suggestion-loading" x-show="loading">Buscando</div>
-                                    <template x-if="!loading && results.products && results.products.length">
-                                        <div class="suggestion-group">
-                                            <div class="suggestion-group-title">Productos</div>
-                                            <template x-for="(product, i) in results.products" :key="product.id">
-                                                <a :href="'/producto/' + product.slug"
-                                                   class="suggestion-item"
-                                                   :class="{ 'active': selectedIndex === i }"
-                                                   @mouseenter="selectedIndex = i">
-                                                    <img x-show="product.image" :src="product.image" :alt="product.name" class="suggestion-img">
-                                                    <div x-show="!product.image" class="suggestion-img-placeholder">
-                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                                                    </div>
-                                                    <div class="suggestion-info">
-                                                        <span class="suggestion-name" x-text="product.name"></span>
-                                                        <span class="suggestion-meta" x-text="product.brand"></span>
-                                                    </div>
-                                                    <span class="suggestion-price" x-text="'$' + product.base_price"></span>
-                                                </a>
-                                            </template>
-                                        </div>
+            <form class="navbar-search site-search" role="search" method="get" action="#"
+                  x-data="searchSuggestions()"
+                  @click.outside="open = false"
+                  @keydown.escape.prevent="open = false"
+                  @submit.prevent="submitSearch()">
+                <div class="input-group">
+                    <div class="input-search-field search-wrapper">
+                        <i class="klbth-icon-search">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        </i>
+                        <input type="search" class="form-control search-field" name="s"
+                               placeholder="Busca tu producto favorito..."
+                               autocomplete="off"
+                               x-model="query"
+                               @input.debounce.300ms="fetchSuggestions()"
+                               @keydown.down.prevent="selectedIndex = Math.min(selectedIndex + 1, totalResults - 1)"
+                               @keydown.up.prevent="selectedIndex = Math.max(selectedIndex - 1, 0)"
+                               @keydown.enter.prevent="selectSuggestion()">
+
+                        {{-- SUGGESTIONS DROPDOWN --}}
+                        <div class="search-suggestions" x-show="open && query.length >= 2" x-cloak>
+                            <div class="suggestion-loading" x-show="loading">Buscando</div>
+                            <template x-if="!loading && results.products && results.products.length">
+                                <div class="suggestion-group">
+                                    <div class="suggestion-group-title">Productos</div>
+                                    <template x-for="(product, i) in results.products" :key="product.id">
+                                        <a :href="'/producto/' + product.slug"
+                                           class="suggestion-item"
+                                           :class="{ 'active': selectedIndex === i }"
+                                           @mouseenter="selectedIndex = i">
+                                            <img x-show="product.image" :src="product.image" :alt="product.name" class="suggestion-img">
+                                            <div x-show="!product.image" class="suggestion-img-placeholder">
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                                            </div>
+                                            <div class="suggestion-info">
+                                                <span class="suggestion-name" x-text="product.name"></span>
+                                                <span class="suggestion-meta" x-text="product.brand"></span>
+                                            </div>
+                                            <span class="suggestion-price" x-text="'$' + product.base_price"></span>
+                                        </a>
                                     </template>
-                                    <template x-if="!loading && results.categories && results.categories.length">
-                                        <div class="suggestion-group">
-                                            <div class="suggestion-group-title">Categorías</div>
-                                            <template x-for="cat in results.categories" :key="cat.id">
-                                                <a :href="'#'" class="suggestion-cat" x-text="cat.name"></a>
-                                            </template>
-                                        </div>
-                                    </template>
-                                    <div class="suggestion-empty" x-show="!loading && query.length >= 2 && (!results.products || !results.products.length) && (!results.categories || !results.categories.length)">
-                                        No se encontraron resultados para "<span x-text="query"></span>"
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="input-search-button">
-                                <button class="btn btn-primary" type="submit">Buscar</button>
+                            </template>
+                            <template x-if="!loading && results.categories && results.categories.length">
+                                <div class="suggestion-group">
+                                    <div class="suggestion-group-title">Categorías</div>
+                                    <template x-for="cat in results.categories" :key="cat.id">
+                                        <a :href="'#'" class="suggestion-cat" x-text="cat.name"></a>
+                                    </template>
+                                </div>
+                            </template>
+                            <div class="suggestion-empty" x-show="!loading && query.length >= 2 && (!results.products || !results.products.length) && (!results.categories || !results.categories.length)">
+                                No se encontraron resultados para "<span x-text="query"></span>"
                             </div>
                         </div>
+                    </div>
+                    <div class="input-group-addon search-categories">
+                        <select class="form-select" name="product_cat" id="categories"
+                                x-model="category">
+                            <option value="" selected>Todas las categorías</option>
+                            @foreach($headerCategories as $category)
+                                <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="input-group-btn">
                         <input type="hidden" name="post_type" value="product">
-                    </form>
+                        <button class="btn btn-secondary" type="submit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        </button>
+                    </div>
                 </div>
+            </form>
 
+            <div class="header-icons">
                 <div class="header-addons login-button">
                     <a href="#">
                         <div class="header-addons-icon">
@@ -516,14 +506,14 @@
     </div>
 </div>
 
-{{-- HEADER NAV --}}
-<div class="header-nav custom-color-dark">
+{{-- ELECTRO V5 NAVIGATION (full-width, white, box-shadow) --}}
+<div class="electro-navigation-v5">
     <div class="container">
-        <div class="header-wrapper">
-            <div class="column align-center left">
+        <div class="electro-navigation">
+            <div class="departments-menu-v2">
                 <div class="site-departments large">
                     <div class="site-departments-wrapper">
-                        <a href="#" class="all-categories">
+                        <a href="#" class="all-categories departments-menu-v2-title">
                             <span class="departments-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
                             </span>
@@ -550,18 +540,18 @@
                         </ul>
                     </div>
                 </div>
-                <nav class="site-menu horizontal primary shadow-enable">
-                    <ul class="menu">
-                        <li><a href="{{ route('home') }}">Inicio</a></li>
-                        <li><a href="#">Catálogo</a></li>
-                        <li><a href="#">Ofertas</a></li>
-                        <li><a href="#">Reacondicionados</a></li>
-                        <li><a href="#">Componentes</a></li>
-                        <li><a href="#">Periféricos</a></li>
-                        <li><a href="#">Contacto</a></li>
-                    </ul>
-                </nav>
             </div>
+            <nav class="secondary-nav">
+                <ul class="menu">
+                    <li><a href="{{ route('home') }}">Inicio</a></li>
+                    <li><a href="#">Catálogo</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Reacondicionados</a></li>
+                    <li><a href="#">Componentes</a></li>
+                    <li><a href="#">Periféricos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -653,7 +643,7 @@
             </div>
         </div>
     </div>
-    <div class="footer-copyright bordered">
+    <div class="footer-copyright">
         <div class="container">
             <div class="footer-bottom">
                 <div class="site-copyright"><p>Copyright {{ date('Y') }}. VHTtech Store. Todos los derechos reservados.</p></div>
