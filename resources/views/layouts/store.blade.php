@@ -108,6 +108,43 @@
         .site-departments-wrapper .all-categories{display:flex;align-items:center;gap:.625rem;padding:.75rem 1.125rem;background:var(--color-secondary);color:var(--color-main-text);text-decoration:none;font-size:.8125rem;font-weight:600;min-height:54px}
         .site-departments-wrapper .all-categories .departments-icon{font-size:1.25rem;line-height:1}
         .site-departments-wrapper .all-categories .departments-arrow{margin-left:.625rem;font-size:.75rem;line-height:1}
+
+        /* === CATEGORIES DROPDOWN PANEL === */
+        .site-departments-panel{
+            position:absolute;top:100%;left:0;width:280px;
+            background:#fff;border-radius:0 0 7px 7px;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);z-index:1000;
+            display:none;color:var(--color-main-text)
+        }
+        .site-departments:hover .site-departments-panel,
+        .site-departments-panel:hover{display:block}
+        .departments-menu{list-style:none;padding:0;margin:0}
+        .departments-menu .department-item{position:relative}
+        .departments-menu .department-item > a{
+            display:flex;align-items:center;padding:.75rem 1.25rem;
+            font-size:.875rem;font-weight:500;color:var(--color-main-text);
+            text-decoration:none;border-bottom:1px solid var(--color-theme-border);
+            transition:background .15s
+        }
+        .departments-menu .department-item > a:hover{background:var(--color-theme-light)}
+        .departments-menu .department-item:last-child > a{border-bottom:none}
+        .departments-menu .department-item.has-children > a::after{
+            content:"";margin-left:auto;width:16px;height:16px;flex-shrink:0;
+            background:url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23818ea0' stroke-width='2'%3E%3Cpath d='m9 6 6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat
+        }
+        .department-submenu{
+            position:absolute;top:0;left:100%;width:240px;
+            background:#fff;border-radius:7px;
+            box-shadow:0 8px 20px rgba(0,0,0,.15);
+            list-style:none;padding:.5rem 0;margin:0;display:none
+        }
+        .department-item.has-children:hover > .department-submenu{display:block}
+        .department-submenu li a{
+            display:block;padding:.5rem 1.25rem;font-size:.8125rem;
+            color:var(--color-main-text);text-decoration:none;transition:background .15s
+        }
+        .department-submenu li a:hover{background:var(--color-theme-light)}
+
         .site-header .site-menu.primary .menu{display:flex;list-style:none;margin-left:-.625rem}
         .site-header .site-menu.primary .menu > li{margin-right:.625rem}
         .site-header .site-menu.primary .menu > li > a{display:flex;align-items:center;height:54px;padding:0 .625rem;font-size:15px;font-weight:500;text-decoration:none;color:#fff;transition:opacity .15s}
@@ -227,6 +264,9 @@
                             <div class="input-search-addon">
                                 <select class="form-select custom-width" name="product_cat" id="categories">
                                     <option value="" selected>Todas las categorías</option>
+                                    @foreach($headerCategories as $category)
+                                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="input-search-field">
@@ -297,6 +337,22 @@
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
                             </span>
                         </a>
+                    </div>
+                    <div class="site-departments-panel">
+                        <ul class="departments-menu">
+                            @foreach($headerCategories as $category)
+                                <li class="department-item{{ $category->children->count() ? ' has-children' : '' }}">
+                                    <a href="#">{{ $category->name }}</a>
+                                    @if($category->children->count())
+                                        <ul class="department-submenu">
+                                            @foreach($category->children as $child)
+                                                <li><a href="#">{{ $child->name }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
                 <nav class="site-menu horizontal primary shadow-enable">
