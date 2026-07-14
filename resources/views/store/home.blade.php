@@ -31,30 +31,6 @@
     .category-card .cat-icon{width:3rem;height:3rem;display:flex;align-items:center;justify-content:center;margin-bottom:.75rem;font-size:1.75rem;color:var(--color-primary)}
     .category-card .cat-name{font-size:.8125rem;font-weight:600;text-align:center;line-height:1.2}
 
-    .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
-    .product-card{background:var(--color-background);border:1px solid var(--color-theme-border);border-radius:var(--border-radius);overflow:hidden;transition:box-shadow .2s;position:relative}
-    .product-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
-    .product-card .card-badge{position:absolute;top:.75rem;left:.75rem;z-index:2;display:flex;flex-direction:column;gap:.375rem}
-    .product-card .card-badge span{display:inline-block;padding:.2rem .5rem;border-radius:3px;font-size:.6875rem;font-weight:700;text-transform:uppercase;line-height:1.2}
-    .product-card .card-badge .feat{background:#fef3cd;color:#856404}
-    .product-card .card-badge .refurb{background:var(--color-reacondicionado,#e8daef);color:var(--color-reacondicionado-text,#6c3483)}
-    .product-card .card-thumb{background:var(--color-theme-light);aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative}
-    .product-card .card-thumb img{max-width:100%;max-height:100%;object-fit:contain}
-    .product-card .card-thumb .thumb-placeholder{width:3rem;height:3rem;color:#d0d5dd}
-    .product-card .card-body{padding:.75rem 1rem 1rem}
-    .product-card .card-body .card-brand{font-size:.6875rem;color:var(--color-text-light);text-transform:uppercase;margin-bottom:.125rem}
-    .product-card .card-body .card-title{font-size:.875rem;font-weight:500;margin-bottom:.5rem;display:block;color:var(--color-main-text);text-decoration:none;line-height:1.3;transition:color .15s}
-    .product-card .card-body .card-title:hover{color:var(--color-link)}
-    .product-card .card-body .card-price{font-size:1.125rem;font-weight:700;color:var(--color-main-text)}
-    .product-card .card-body .card-price .price-bs{display:block;font-size:.75rem;font-weight:400;color:var(--color-text-light);margin-top:2px}
-    .product-card .card-body .card-price del{font-size:70%;color:var(--color-text-light);opacity:.5;font-weight:400}
-    .product-card .card-body .card-meta{font-size:.6875rem;color:var(--color-text-light);margin-top:.25rem}
-    .product-card .card-actions{display:flex;gap:.375rem;padding:.625rem 1rem 1rem;border-top:1px solid var(--color-theme-border)}
-    .product-card .card-actions .btn-cart{flex:1;height:2.25rem;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--color-shop-button);color:#fff;border:none;cursor:pointer;font-size:.75rem;font-weight:600;gap:.375rem;text-decoration:none;transition:background .15s}
-    .product-card .card-actions .btn-cart:hover{background:var(--color-shop-button-active);color:#fff}
-    .product-card .card-actions .btn-wish{width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-theme-border);border-radius:4px;background:none;cursor:pointer;color:var(--color-text-light);transition:all .15s}
-    .product-card .card-actions .btn-wish:hover{border-color:var(--color-theme-danger);color:var(--color-theme-danger)}
-
     .banner-section{padding:1.25rem 0}
     .banner-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:220px;display:flex;align-items:center;padding:2.5rem;color:#fff;background:linear-gradient(135deg,#0d2b50,#1a4a7a)}
     .banner-card .banner-content{max-width:55%}
@@ -74,11 +50,9 @@
     @media(max-width:992px){
         .hero-grid{grid-template-columns:1fr}
         .category-grid{grid-template-columns:repeat(3,1fr)}
-        .product-grid{grid-template-columns:repeat(2,1fr)}
         .features-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
     }
     @media(max-width:768px){
-        .product-grid{grid-template-columns:1fr}
         .hero-card .hero-content{max-width:100%}
     }
 @endsection

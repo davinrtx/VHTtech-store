@@ -7,6 +7,67 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+        function searchSuggestions() {
+            return {
+                query: '',
+                category: '',
+                results: { products: [], categories: [] },
+                loading: false,
+                open: false,
+                selectedIndex: 0,
+
+                get totalResults() {
+                    const p = this.results.products || [];
+                    const c = this.results.categories || [];
+                    return p.length + c.length;
+                },
+
+                async fetchSuggestions() {
+                    if (this.query.length < 2) {
+                        this.open = false;
+                        return;
+                    }
+                    this.loading = true;
+                    this.open = true;
+                    this.selectedIndex = 0;
+                    try {
+                        const res = await fetch(`/buscar/sugerencias?q=${encodeURIComponent(this.query)}`);
+                        this.results = await res.json();
+                    } catch {
+                        this.results = { products: [], categories: [] };
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                selectSuggestion() {
+                    const products = this.results.products || [];
+                    const categories = this.results.categories || [];
+                    const total = products.length + categories.length;
+                    if (total === 0) return;
+
+                    if (this.selectedIndex < products.length) {
+                        const product = products[this.selectedIndex];
+                        window.location.href = '/producto/' + product.slug;
+                    } else {
+                        const catIndex = this.selectedIndex - products.length;
+                        if (categories[catIndex]) {
+                            // Future: navigate to category page
+                            this.open = false;
+                        }
+                    }
+                },
+
+                submitSearch() {
+                    if (this.query.trim()) {
+                        window.location.href = '/buscar?q=' + encodeURIComponent(this.query) + (this.category ? '&categoria=' + this.category : '');
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
         :root{
@@ -83,6 +144,60 @@
         .site-search button:hover{opacity:.9}
         @media(min-width:1200px){.site-search button{height:3.125rem}}
 
+        /* === SEARCH SUGGESTIONS === */
+        .search-wrapper{position:relative;width:100%}
+        .search-suggestions{
+            position:absolute;top:100%;left:0;right:0;z-index:2000;
+            background:#fff;border:1px solid var(--color-theme-border);
+            border-radius:0 0 var(--border-radius) var(--border-radius);
+            box-shadow:0 8px 30px rgba(0,0,0,.12);max-height:420px;overflow-y:auto
+        }
+        .search-suggestions .suggestion-group{padding:.5rem 0}
+        .search-suggestions .suggestion-group+.suggestion-group{border-top:1px solid var(--color-theme-border)}
+        .search-suggestions .suggestion-group-title{
+            padding:.25rem .75rem;font-size:.6875rem;font-weight:600;
+            text-transform:uppercase;color:var(--color-text-light);letter-spacing:.5px
+        }
+        .search-suggestions .suggestion-item{
+            display:flex;align-items:center;gap:.75rem;
+            padding:.5rem .75rem;text-decoration:none;color:var(--color-main-text);
+            transition:background .1s;cursor:pointer
+        }
+        .search-suggestions .suggestion-item:hover,
+        .search-suggestions .suggestion-item.active{background:var(--color-theme-light)}
+        .search-suggestions .suggestion-img{
+            width:40px;height:40px;border-radius:4px;object-fit:cover;
+            background:var(--color-theme-light);flex-shrink:0
+        }
+        .search-suggestions .suggestion-img-placeholder{
+            width:40px;height:40px;border-radius:4px;
+            background:var(--color-theme-light);flex-shrink:0;
+            display:flex;align-items:center;justify-content:center;
+            color:#d0d5dd
+        }
+        .search-suggestions .suggestion-info{flex:1;min-width:0}
+        .search-suggestions .suggestion-name{display:block;font-size:.8125rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .search-suggestions .suggestion-meta{display:block;font-size:.6875rem;color:var(--color-text-light);margin-top:1px}
+        .search-suggestions .suggestion-price{font-size:.8125rem;font-weight:600;color:var(--color-main-text);white-space:nowrap;flex-shrink:0}
+        .search-suggestions .suggestion-cat{
+            display:block;padding:.35rem .75rem;font-size:.8125rem;
+            color:var(--color-main-text);text-decoration:none;transition:background .1s
+        }
+        .search-suggestions .suggestion-cat:hover{background:var(--color-theme-light)}
+        .search-suggestions .suggestion-empty{
+            padding:1.5rem;text-align:center;font-size:.8125rem;color:var(--color-text-light)
+        }
+        .search-suggestions .suggestion-loading{
+            padding:1rem;text-align:center;font-size:.8125rem;color:var(--color-text-light)
+        }
+        .search-suggestions .suggestion-loading::after{
+            content:"";display:inline-block;width:1rem;height:1rem;
+            border:2px solid var(--color-theme-border);border-top-color:var(--color-primary);
+            border-radius:50%;animation:spin .6s linear infinite;margin-left:.5rem;vertical-align:middle
+        }
+        @keyframes spin{to{transform:rotate(360deg)}}
+        [x-cloak]{display:none!important}
+
         /* HEADER ADDONS */
         .header-addons{display:inline-flex;align-items:center;flex-shrink:0;margin-left:1.25rem}
         .header-addons:first-of-type{margin-left:2.5rem}
@@ -153,6 +268,38 @@
 
         /* DISCOUNT BANNER */
 
+
+        /* === PRODUCT CARDS (shared grid) === */
+        .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+        .product-card{background:var(--color-background);border:1px solid var(--color-theme-border);border-radius:var(--border-radius);overflow:hidden;transition:box-shadow .2s;position:relative}
+        .product-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+        .product-card .card-badge{position:absolute;top:.75rem;left:.75rem;z-index:2;display:flex;flex-direction:column;gap:.375rem}
+        .product-card .card-badge span{display:inline-block;padding:.2rem .5rem;border-radius:3px;font-size:.6875rem;font-weight:700;text-transform:uppercase;line-height:1.2}
+        .product-card .card-badge .feat{background:#fef3cd;color:#856404}
+        .product-card .card-badge .refurb{background:var(--color-reacondicionado,#e8daef);color:var(--color-reacondicionado-text,#6c3483)}
+        .product-card .card-thumb{background:var(--color-theme-light);aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:1.5rem;position:relative}
+        .product-card .card-thumb img{max-width:100%;max-height:100%;object-fit:contain}
+        .product-card .card-thumb .thumb-placeholder{width:3rem;height:3rem;color:#d0d5dd}
+        .product-card .card-body{padding:.75rem 1rem 1rem}
+        .product-card .card-body .card-brand{font-size:.6875rem;color:var(--color-text-light);text-transform:uppercase;margin-bottom:.125rem}
+        .product-card .card-body .card-title{font-size:.875rem;font-weight:500;margin-bottom:.5rem;display:block;color:var(--color-main-text);text-decoration:none;line-height:1.3;transition:color .15s}
+        .product-card .card-body .card-title:hover{color:var(--color-link)}
+        .product-card .card-body .card-price{font-size:1.125rem;font-weight:700;color:var(--color-main-text)}
+        .product-card .card-body .card-price .price-bs{display:block;font-size:.75rem;font-weight:400;color:var(--color-text-light);margin-top:2px}
+        .product-card .card-body .card-price del{font-size:70%;color:var(--color-text-light);opacity:.5;font-weight:400}
+        .product-card .card-body .card-meta{font-size:.6875rem;color:var(--color-text-light);margin-top:.25rem}
+        .product-card .card-actions{display:flex;gap:.375rem;padding:.625rem 1rem 1rem;border-top:1px solid var(--color-theme-border)}
+        .product-card .card-actions .btn-cart{flex:1;height:2.25rem;display:flex;align-items:center;justify-content:center;border-radius:4px;background:var(--color-shop-button);color:#fff;border:none;cursor:pointer;font-size:.75rem;font-weight:600;gap:.375rem;text-decoration:none;transition:background .15s}
+        .product-card .card-actions .btn-cart:hover{background:var(--color-shop-button-active);color:#fff}
+        .product-card .card-actions .btn-wish{width:2.25rem;height:2.25rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--color-theme-border);border-radius:4px;background:none;cursor:pointer;color:var(--color-text-light);transition:all .15s}
+        .product-card .card-actions .btn-wish:hover{border-color:var(--color-theme-danger);color:var(--color-theme-danger)}
+
+        @media(max-width:992px){
+            .product-grid{grid-template-columns:repeat(2,1fr)}
+        }
+        @media(max-width:768px){
+            .product-grid{grid-template-columns:1fr}
+        }
 
         @yield('extra_styles')
 
@@ -258,22 +405,70 @@
                 <div class="site-brand"><a href="{{ route('home') }}">VHT<span class="accent">tech</span></a></div>
             </div>
             <div class="column align-center right">
-                <div class="header-form site-search">
-                    <form class="search-form" role="search" method="get" id="searchform">
+                <div class="header-form site-search"
+                     x-data="searchSuggestions()"
+                     @click.outside="open = false"
+                     @keydown.escape.prevent="open = false">
+                    <form class="search-form" role="search" method="get" action="#" @submit.prevent="submitSearch()">
                         <div class="input-group">
                             <div class="input-search-addon">
-                                <select class="form-select custom-width" name="product_cat" id="categories">
+                                <select class="form-select custom-width" name="product_cat" id="categories"
+                                        x-model="category">
                                     <option value="" selected>Todas las categorías</option>
                                     @foreach($headerCategories as $category)
                                         <option value="{{ $category->slug }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="input-search-field">
+                            <div class="input-search-field search-wrapper">
                                 <i class="klbth-icon-search">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                                 </i>
-                                <input type="search" class="form-control" name="s" placeholder="Busca tu producto favorito..." autocomplete="off">
+                                <input type="search" class="form-control" name="s"
+                                       placeholder="Busca tu producto favorito..."
+                                       autocomplete="off"
+                                       x-model="query"
+                                       @input.debounce.300ms="fetchSuggestions()"
+                                       @keydown.down.prevent="selectedIndex = Math.min(selectedIndex + 1, totalResults - 1)"
+                                       @keydown.up.prevent="selectedIndex = Math.max(selectedIndex - 1, 0)"
+                                       @keydown.enter.prevent="selectSuggestion()">
+
+                                {{-- SUGGESTIONS DROPDOWN --}}
+                                <div class="search-suggestions" x-show="open && query.length >= 2" x-cloak>
+                                    <div class="suggestion-loading" x-show="loading">Buscando</div>
+                                    <template x-if="!loading && results.products && results.products.length">
+                                        <div class="suggestion-group">
+                                            <div class="suggestion-group-title">Productos</div>
+                                            <template x-for="(product, i) in results.products" :key="product.id">
+                                                <a :href="'/producto/' + product.slug"
+                                                   class="suggestion-item"
+                                                   :class="{ 'active': selectedIndex === i }"
+                                                   @mouseenter="selectedIndex = i">
+                                                    <img x-show="product.image" :src="product.image" :alt="product.name" class="suggestion-img">
+                                                    <div x-show="!product.image" class="suggestion-img-placeholder">
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                                                    </div>
+                                                    <div class="suggestion-info">
+                                                        <span class="suggestion-name" x-text="product.name"></span>
+                                                        <span class="suggestion-meta" x-text="product.brand"></span>
+                                                    </div>
+                                                    <span class="suggestion-price" x-text="'$' + product.base_price"></span>
+                                                </a>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template x-if="!loading && results.categories && results.categories.length">
+                                        <div class="suggestion-group">
+                                            <div class="suggestion-group-title">Categorías</div>
+                                            <template x-for="cat in results.categories" :key="cat.id">
+                                                <a :href="'#'" class="suggestion-cat" x-text="cat.name"></a>
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <div class="suggestion-empty" x-show="!loading && query.length >= 2 && (!results.products || !results.products.length) && (!results.categories || !results.categories.length)">
+                                        No se encontraron resultados para "<span x-text="query"></span>"
+                                    </div>
+                                </div>
                             </div>
                             <div class="input-search-button">
                                 <button class="btn btn-primary" type="submit">Buscar</button>
@@ -342,11 +537,11 @@
                         <ul class="departments-menu">
                             @foreach($headerCategories as $category)
                                 <li class="department-item{{ $category->children->count() ? ' has-children' : '' }}">
-                                    <a href="#">{{ $category->name }}</a>
+                                    <a href="{{ route('search.results', ['categoria' => $category->slug]) }}">{{ $category->name }}</a>
                                     @if($category->children->count())
                                         <ul class="department-submenu">
                                             @foreach($category->children as $child)
-                                                <li><a href="#">{{ $child->name }}</a></li>
+                                                <li><a href="{{ route('search.results', ['categoria' => $child->slug]) }}">{{ $child->name }}</a></li>
                                             @endforeach
                                         </ul>
                                     @endif
