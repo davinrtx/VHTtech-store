@@ -7,6 +7,7 @@
     .hero-section{padding:1.875rem 0;background:var(--color-background);border-bottom:1px solid var(--color-theme-border)}
     .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.875rem}
     .hero-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:300px;display:flex;align-items:center;padding:2.5rem 3.125rem;color:#fff;text-decoration:none}
+    .hero-card:hover{color:#fff}
     .hero-card.primary{background:linear-gradient(135deg,var(--color-primary) 0%,#0a3a6e 100%)}
     .hero-card.secondary{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%)}
     .hero-card .hero-content{max-width:70%}
@@ -45,6 +46,7 @@
     .product-card .card-body .card-title{font-size:.875rem;font-weight:500;margin-bottom:.5rem;display:block;color:var(--color-main-text);text-decoration:none;line-height:1.3;transition:color .15s}
     .product-card .card-body .card-title:hover{color:var(--color-link)}
     .product-card .card-body .card-price{font-size:1.125rem;font-weight:700;color:var(--color-main-text)}
+    .product-card .card-body .card-price .price-bs{display:block;font-size:.75rem;font-weight:400;color:var(--color-text-light);margin-top:2px}
     .product-card .card-body .card-price del{font-size:70%;color:var(--color-text-light);opacity:.5;font-weight:400}
     .product-card .card-body .card-meta{font-size:.6875rem;color:var(--color-text-light);margin-top:.25rem}
     .product-card .card-actions{display:flex;gap:.375rem;padding:.625rem 1rem 1rem;border-top:1px solid var(--color-theme-border)}
@@ -158,7 +160,7 @@
                 <div class="card-body">
                     @if($product->brand)<div class="card-brand">{{ $product->brand->name }}</div>@endif
                     <a href="{{ route('products.show', $product->slug) }}" class="card-title">{{ $product->name }}</a>
-                    <div class="card-price">${{ number_format($product->base_price, 2) }} / Bs. {{ number_format($product->base_price * ($exchangeRate?->rate ?? 0), 2, ',', '.') }}</div>
+                    <div class="card-price">${{ number_format($product->base_price, 2) }}<span class="price-bs">Bs. {{ number_format($product->base_price * ($exchangeRate?->rate ?? 0), 2, ',', '.') }}</span></div>
                     @if($product->short_description)
                     <div class="card-meta">{{ Str::limit($product->short_description, 60) }}</div>
                     @endif
@@ -182,7 +184,7 @@
                     <div class="card-body">
                         <div class="card-brand">—</div>
                         <a href="#" class="card-title">Producto de ejemplo</a>
-                        <div class="card-price">$0.00 / Bs. 0</div>
+                        <div class="card-price">$0.00<span class="price-bs">Bs. 0,00</span></div>
                     </div>
                     <div class="card-actions">
                         <a href="#" class="btn-cart">Ver producto</a>
@@ -235,7 +237,7 @@
                 <div class="card-body">
                     @if($product->brand)<div class="card-brand">{{ $product->brand->name }}</div>@endif
                     <a href="{{ route('products.show', $product->slug) }}" class="card-title">{{ $product->name }}</a>
-                    <div class="card-price">${{ number_format($product->base_price, 2) }}</div>
+                    <div class="card-price">${{ number_format($product->base_price, 2) }}<span class="price-bs">Bs. {{ number_format($product->base_price * ($exchangeRate?->rate ?? 0), 2, ',', '.') }}</span></div>
                 </div>
                 <div class="card-actions">
                     <a href="{{ route('products.show', $product->slug) }}" class="btn-cart">
