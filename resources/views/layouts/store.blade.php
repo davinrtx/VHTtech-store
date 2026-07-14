@@ -99,8 +99,8 @@
         .container{max-width:1430px;margin:0 auto;padding:0 1rem}
         /* ELECTRO V5 — top bar light, primary azul eléctrico */
 
-        /* === TOP BAR (light style — Electro V5 adapted) === */
-        .top-bar{background:#f5f5f5;border-bottom:1px solid var(--color-theme-border);font-size:.8125rem;position:relative;z-index:11}
+        /* === TOP BAR (Electro V5 — light, no border) === */
+        .top-bar{background:#f5f5f5;border-bottom:0;font-size:.8125rem;position:relative;z-index:11}
         .top-bar .top-bar-inner{display:flex;align-items:center;justify-content:space-between}
         .top-bar .top-bar-menu{display:flex;list-style:none;align-items:center;margin:0;padding:0}
         .top-bar .top-bar-menu li{display:flex;align-items:center}
@@ -122,21 +122,18 @@
         .masthead .navbar-search{flex:1;padding:0 1.25rem}
         .masthead .header-icons{display:flex;align-items:center;flex-shrink:0}
 
-        /* SEARCH — Electro V5 (no border, dark button) */
+        /* SEARCH — Electro V5 exact (borderless, 41px height, connected input+btn) */
         .site-search{width:100%}
-        .site-search .input-group{display:inline-flex;align-items:center;flex-shrink:0;width:100%}
+        .site-search .input-group{display:inline-flex;align-items:center;flex-shrink:0;width:100%;height:41px}
         .site-search .input-group > *{position:relative;display:inline-flex;align-items:center}
         .site-search .input-group > *.input-search-field{flex:1}
-        .site-search select{width:auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:0;height:2.75rem;padding:0 .9375rem;font-size:.875rem;border:0;background:var(--color-background);color:var(--color-main-text);outline:none;cursor:pointer}
-        @media(min-width:1200px){.site-search select{height:3.125rem}}
-        .site-search input[type=search]{border-radius:0;padding-left:3.625rem;height:2.75rem;width:100%;border:0;font-size:.875rem;color:var(--color-main-text);outline:none;background:#f8f9fa}
+        .site-search select{width:auto;border-top-right-radius:0;border-bottom-right-radius:0;border-right:0;height:41px;padding:0 .9375rem;font-size:.875rem;border:none;background:var(--color-background);color:var(--color-main-text);outline:none;cursor:pointer;border-radius:0}
+        .site-search input[type=search]{border-radius:0;padding-left:3.625rem;height:41px;width:100%;border:none;font-size:.875rem;color:var(--color-main-text);outline:none;background:#f8f9fa}
         .site-search input[type=search]::placeholder{color:var(--color-form-placeholder)}
-        @media(min-width:1200px){.site-search input[type=search]{height:3.125rem}}
         .site-search i{position:absolute;font-size:1.5rem;left:.75rem;top:50%;transform:translateY(-50%);color:var(--color-form-placeholder);pointer-events:none;z-index:1;display:flex;align-items:center}
         @media(min-width:1200px){.site-search i{font-size:1.75rem}}
-        .site-search button{border-top-left-radius:0;border-bottom-left-radius:0;height:2.75rem;padding:0 1.5625rem;background:#333e48;color:#fff;border:0;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s;font-family:var(--font-primary)}
+        .site-search button{border-top-left-radius:0;border-bottom-left-radius:0;height:41px;padding:0 1.25rem;background:#333e48;color:#fff;border:none;font-size:.875rem;font-weight:600;cursor:pointer;transition:opacity .15s;font-family:var(--font-primary);border-radius:0}
         .site-search button:hover{opacity:.85}
-        @media(min-width:1200px){.site-search button{height:3.125rem}}
 
         /* === SEARCH SUGGESTIONS === */
         .search-wrapper{position:relative;width:100%}
@@ -192,47 +189,48 @@
         @keyframes spin{to{transform:rotate(360deg)}}
         [x-cloak]{display:none!important}
 
-        /* HEADER ADDONS */
         .header-addons{display:inline-flex;align-items:center;flex-shrink:0;margin-left:1.25rem}
         .header-addons:first-of-type{margin-left:2.5rem}
         .header-addons a{display:inline-flex;align-items:center;text-decoration:none;color:currentColor}
         .header-addons-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;font-size:1.5rem;width:2.25rem;height:2.25rem}
         .header-addons-icon svg{width:1.375rem;height:1.375rem}
-        .header-addons-icon .button-count{position:absolute;display:inline-flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:700;min-width:1.125rem;height:1.125rem;top:2px;right:-3px;color:#333e48;background:#fff;border-radius:50%}
+        .header-addons-icon .button-count{position:absolute;font-size:.75em;font-weight:700;width:1.75em;line-height:1.75em;text-align:center;border-radius:50%;color:#333e48;background:#fff;bottom:-3px;left:7px}
+        .header-addons-icon .button-count[data-count="0"]{display:none}
         .header-addons-text{display:flex;flex-direction:column;margin-left:.625rem;line-height:1.1}
         .header-addons-text .sub-text{display:block;font-size:.6875rem;opacity:.5;margin-bottom:2px}
         .header-addons-text .primary-text{font-size:.9375rem;font-weight:500}
 
         /* === ELECTRO V5 NAVIGATION (full-width, white, box-shadow) === */
         .electro-navigation-v5{width:100%;position:relative;background:#fff;box-shadow:0 1px 2px 0 rgba(0,0,0,.16);border-bottom:1px solid #d7d7d7}
-        .electro-navigation-v5 .electro-navigation{display:flex;align-items:center}
+        .electro-navigation-v5 .electro-navigation{display:flex;align-items:center;margin-bottom:0}
         .electro-navigation-v5 .departments-menu-v2{flex:0 0 230px;max-width:230px;min-width:230px}
 
         .site-departments.large{position:relative}
         .site-departments-wrapper{display:flex;align-items:center}
-        .departments-menu-v2-title{display:flex;align-items:center;gap:.625rem;padding:.75rem 1.125rem;background:#fff;color:#333e48;text-decoration:none;font-size:.8125rem;font-weight:600;min-height:54px;border:none;line-height:35px;border-radius:0}
-        .departments-menu-v2-title .departments-icon{font-size:1.25rem;line-height:1}
-        .departments-menu-v2-title .departments-arrow{margin-left:.625rem;font-size:.75rem;line-height:1}
+        .departments-menu-v2-title{font-weight:700;font-size:1em;display:flex;height:100%;align-items:center;padding:0;background:#fff;color:#333e48;text-decoration:none;line-height:35px;border:none;border-radius:0}
+        .departments-menu-v2-title .departments-menu-v2-icon{margin-right:9px;margin-left:6px;display:flex;align-items:center;line-height:1}
+        .departments-menu-v2-title .departments-text{line-height:35px}
 
-        /* === CATEGORIES DROPDOWN PANEL (Electro style) === */
+        /* === CATEGORIES DROPDOWN PANEL (Electro exact) === */
         .site-departments-panel{
             position:absolute;top:100%;left:0;width:280px;
-            background:#fff;border-radius:0 0 var(--border-radius) var(--border-radius);
-            border-top:2px solid var(--color-primary);
-            box-shadow:0 8px 20px rgba(0,0,0,.15);z-index:1000;
-            display:none;color:var(--color-main-text)
+            background:#fff;border:2px solid transparent;
+            border-top-color:var(--color-primary);border-top-style:solid;border-top-width:2px;
+            border-radius:0 0 .5em .5em;
+            box-shadow:none;z-index:1000;
+            display:none;color:var(--color-main-text);padding:.5em 0;min-width:270px
         }
         .site-departments:hover .site-departments-panel,
         .site-departments-panel:hover{display:block}
         .departments-menu{list-style:none;padding:0;margin:0}
-        .departments-menu .department-item{position:relative}
+        .departments-menu .department-item{position:relative;padding:0 1em}
         .departments-menu .department-item > a{
-            display:flex;align-items:center;padding:.85rem 1.25rem;
+            display:flex;align-items:center;padding:6.5px 0 6.5px 5px;
             font-size:.875rem;font-weight:500;color:var(--color-main-text);
-            text-decoration:none;border-bottom:1px solid var(--color-theme-border);
-            transition:background .15s
+            text-decoration:none;border-bottom:1px solid #ddd;
+            transition:background .15s;line-height:1.5;white-space:normal
         }
-        .departments-menu .department-item > a:hover{background:#f5f5f5}
+        .departments-menu .department-item > a:hover{background:#f5f5f5;font-weight:700}
         .departments-menu .department-item:last-child > a{border-bottom:none}
         .departments-menu .department-item.has-children > a::after{
             content:"";margin-left:auto;width:16px;height:16px;flex-shrink:0;
@@ -388,7 +386,7 @@
 
         /* FOOTER */
         .site-footer{margin-top:7.1875rem}
-        .footer-newsletter{background:var(--color-primary);padding:3.75rem 0;color:#fff}
+        .footer-newsletter{background:var(--color-primary);padding:.55em 0;color:#fff}
         .footer-newsletter .site-newsletter{display:flex;justify-content:space-between;align-items:center}
         .footer-newsletter .entry-title{font-size:1.375rem;font-weight:600}
         .footer-newsletter .entry-description p{color:rgba(255,255,255,.85);margin-bottom:0}
@@ -564,7 +562,7 @@
                     <a href="#">
                         <div class="header-addons-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                            <span class="button-count">0</span>
+                            <span class="button-count" data-count="0">0</span>
                         </div>
                     </a>
                 </div>
@@ -573,7 +571,7 @@
                     <a href="#">
                         <div class="header-addons-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-                            <span class="button-count">0</span>
+                            <span class="button-count" data-count="0">0</span>
                         </div>
                         <div class="header-addons-text">
                             <span class="sub-text">Total</span>
@@ -594,7 +592,7 @@
                 <div class="site-departments large">
                     <div class="site-departments-wrapper">
                         <a href="#" class="all-categories departments-menu-v2-title">
-                            <span class="departments-icon">
+                            <span class="departments-menu-v2-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
                             </span>
                             <span class="departments-text">Todas las categorías</span>

@@ -3,20 +3,43 @@
 @section('title', 'VHTtech Store — Tecnología para gamers y profesionales')
 
 @section('extra_styles')
-    /* HERO */
-    .hero-section{padding:1.875rem 0;background:var(--color-background);border-bottom:1px solid var(--color-theme-border)}
-    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.875rem}
-    .hero-card{position:relative;border-radius:var(--border-radius);overflow:hidden;min-height:300px;display:flex;align-items:center;padding:2.5rem 3.125rem;color:#fff;text-decoration:none}
-    .hero-card:hover{color:#fff}
-    .hero-card.primary{background:linear-gradient(135deg,#1565C0 0%,#0d47a1 100%)}
-    .hero-card.secondary{background:linear-gradient(135deg,#333e48 0%,#1a252f 100%)}
-    .hero-card .hero-content{max-width:70%}
-    .hero-card .hero-sub{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:.625rem;opacity:.8}
-    .hero-card .hero-title{font-size:1.875rem;font-weight:800;line-height:1.2;margin-bottom:1rem}
-    .hero-card .hero-desc{font-size:.9375rem;margin-bottom:1.5rem;opacity:.8;line-height:1.5}
-    .hero-card .hero-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.875rem;background:var(--color-primary);color:#fff;border-radius:4px;font-weight:600;font-size:.875rem;text-decoration:none;transition:opacity .15s}
-    .hero-card .hero-btn:hover{opacity:.9;color:#fff}
-    .hero-card .hero-highlight{color:#64b5f6}
+    /* HERO CAROUSEL */
+    .hero-carousel{position:relative;overflow:visible;min-height:420px;margin:1.875rem 0}
+    .hero-carousel .hc-track{position:relative;min-height:420px;overflow:hidden}
+    .hero-carousel .hc-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:2.5rem 5rem;color:#fff;text-decoration:none;overflow:hidden;transition:opacity .6s ease,transform .6s ease}
+    .hero-carousel .hc-slide.primary{background:linear-gradient(135deg,#1565C0 0%,#0d47a1 100%)}
+    .hero-carousel .hc-slide.secondary{background:linear-gradient(135deg,#333e48 0%,#1a252f 100%)}
+    .hero-carousel .hc-slide.tertiary{background:linear-gradient(135deg,#0d47a1 0%,#1a237e 100%)}
+    .hero-carousel .hc-slide .hc-content{text-align:center;max-width:600px;z-index:2;position:relative}
+    .hero-carousel .hc-slide .hc-sub{font-size:.9375rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:.75rem;opacity:.9}
+    .hero-carousel .hc-slide .hc-title{font-size:2.5rem;font-weight:800;line-height:1.15;margin-bottom:.75rem}
+    .hero-carousel .hc-slide .hc-desc{font-size:1.0625rem;margin-bottom:2rem;opacity:.85;line-height:1.6}
+    .hero-carousel .hc-slide .hc-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 2rem;background:var(--color-primary);color:#fff;border-radius:4px;font-weight:600;font-size:.9375rem;text-decoration:none;transition:all .15s;margin:0 auto}
+    .hero-carousel .hc-slide .hc-btn:hover{opacity:.9;color:#fff;transform:translateY(-1px)}
+    .hero-carousel .hc-slide .hc-highlight{color:#64b5f6}
+    .hero-carousel .hc-slide .hc-visual{position:absolute;right:2.5rem;top:50%;transform:translateY(-50%);font-size:7rem;z-index:1;opacity:.12;line-height:1}
+    .hero-carousel .hc-slide .hc-visual-sub{position:absolute;left:2.5rem;top:50%;transform:translateY(-50%);font-size:3rem;z-index:0;opacity:.06;line-height:1}
+    .hero-carousel .hc-controls{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:.75rem}
+    .hero-carousel .hc-dots{display:flex;gap:.5rem}
+    .hero-carousel .hc-dots button{width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:transparent;cursor:pointer;padding:0;transition:all .3s}
+    .hero-carousel .hc-dots button.active{background:#fff;border-color:#fff;width:24px;border-radius:5px}
+    .hero-carousel .hc-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:10;display:flex;justify-content:space-between;width:100%;left:0;padding:0;pointer-events:none}
+    .hero-carousel .hc-nav button{pointer-events:auto;width:2.75rem;height:2.75rem;border:none;background:rgba(0,0,0,.18);color:#fff;font-size:1.5rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;margin:0 -.5rem}
+    .hero-carousel .hc-nav button:first-child{margin-left:.5rem}
+    .hero-carousel .hc-nav button:last-child{margin-right:.5rem}
+    .hero-carousel .hc-nav button:hover{background:rgba(0,0,0,.35);transform:scale(1.08)}
+    @media(max-width:768px){
+        .hero-carousel{min-height:320px;margin:1rem 0}
+        .hero-carousel .hc-track{min-height:320px}
+        .hero-carousel .hc-slide{padding:1.5rem 2.5rem}
+        .hero-carousel .hc-slide .hc-content{max-width:100%}
+        .hero-carousel .hc-slide .hc-title{font-size:1.5rem}
+        .hero-carousel .hc-slide .hc-desc{font-size:.9375rem}
+        .hero-carousel .hc-slide .hc-visual{font-size:4rem;right:1rem}
+        .hero-carousel .hc-slide .hc-visual-sub{display:none}
+        .hero-carousel .hc-controls{bottom:1rem}
+        .hero-carousel .hc-nav button{width:2.25rem;height:2.25rem;font-size:1.25rem}
+    }
 
     /* SECTIONS */
     .section{padding:2.5rem 0}
@@ -42,37 +65,70 @@
     .feature-item .feat-desc{font-size:.75rem;color:var(--color-text-light)}
 
     @media(max-width:992px){
-        .hero-grid{grid-template-columns:1fr}
         .features-grid{grid-template-columns:repeat(2,1fr);gap:1.25rem}
-    }
-    @media(max-width:768px){
-        .hero-card .hero-content{max-width:100%}
     }
 @endsection
 
 @section('content')
 {{-- ======================== --}}
-{{-- HERO SECTION             --}}
+{{-- HERO CAROUSEL ANIMADO     --}}
 {{-- ======================== --}}
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-grid">
-            <a href="{{ route('search.results', ['categoria' => 'laptops']) }}" class="hero-card primary">
-                <div class="hero-content">
-                    <div class="hero-sub">Reacondicionados certificados</div>
-                    <h1 class="hero-title">Tecnología al <span class="hero-highlight">mejor precio</span></h1>
-                    <p class="hero-desc">Equipos reacondicionados con garantía de 12 meses. Calidad garantizada, ahorro asegurado.</p>
-                    <span class="hero-btn">Ver catálogo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></span>
-                </div>
-            </a>
-            <a href="{{ route('search.results', ['orden' => 'newest']) }}" class="hero-card secondary">
-                <div class="hero-content">
-                    <div class="hero-sub">Nuevos ingresos</div>
-                    <h1 class="hero-title">Componentes <span class="hero-highlight">gaming</span> 2025</h1>
-                    <p class="hero-desc">Los últimos procesadores, GPUs y periféricos para llevar tu setup al siguiente nivel.</p>
-                    <span class="hero-btn">Explorar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></span>
-                </div>
-            </a>
+<section class="hero-carousel" x-data="heroCarousel()" x-init="init()">
+    <div class="hc-track">
+        {{-- SLIDE 1 --}}
+        <div class="hc-slide primary"
+             x-show="current === 0"
+             x-transition:enter.opacity.duration.600ms
+             x-transition:leave.opacity.duration.400ms>
+            <div class="hc-content">
+                <div class="hc-sub">Reacondicionados certificados</div>
+                <h1 class="hc-title">Tecnología al <span class="hc-highlight">mejor precio</span></h1>
+                <p class="hc-desc">Equipos reacondicionados con garantía de 12 meses. Calidad garantizada, ahorro asegurado.</p>
+                <a href="{{ route('search.results', ['categoria' => 'laptops']) }}" class="hc-btn">Ver catálogo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+            </div>
+            <div class="hc-visual">💻</div>
+            <div class="hc-visual-sub">🖥️</div>
+        </div>
+        {{-- SLIDE 2 --}}
+        <div class="hc-slide secondary"
+             x-show="current === 1"
+             x-transition:enter.opacity.duration.600ms
+             x-transition:leave.opacity.duration.400ms>
+            <div class="hc-content">
+                <div class="hc-sub">Nuevos ingresos</div>
+                <h1 class="hc-title">Componentes <span class="hc-highlight">gaming</span> 2025</h1>
+                <p class="hc-desc">Los últimos procesadores, GPUs y periféricos para llevar tu setup al siguiente nivel.</p>
+                <a href="{{ route('search.results', ['orden' => 'newest']) }}" class="hc-btn">Explorar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+            </div>
+            <div class="hc-visual">🎮</div>
+            <div class="hc-visual-sub">⌨️</div>
+        </div>
+        {{-- SLIDE 3 --}}
+        <div class="hc-slide tertiary"
+             x-show="current === 2"
+             x-transition:enter.opacity.duration.600ms
+             x-transition:leave.opacity.duration.400ms>
+            <div class="hc-content">
+                <div class="hc-sub">Accesorios esenciales</div>
+                <h1 class="hc-title">Todo para tu <span class="hc-highlight">setup</span></h1>
+                <p class="hc-desc">Monitores, teclados, audífonos y más. Encuentra todo lo que necesitas para trabajar y jugar.</p>
+                <a href="{{ route('search.results', ['categoria' => 'accesorios']) }}" class="hc-btn">Ver accesorios <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+            </div>
+            <div class="hc-visual">🎧</div>
+            <div class="hc-visual-sub">🖱️</div>
+        </div>
+    </div>
+    {{-- NAV CONTROLS --}}
+    <div class="hc-nav">
+        <button @click="prev()" aria-label="Anterior">‹</button>
+        <button @click="next()" aria-label="Siguiente">›</button>
+    </div>
+    {{-- DOTS --}}
+    <div class="hc-controls">
+        <div class="hc-dots">
+            <template x-for="(s, i) in slides" :key="i">
+                <button :class="{ active: current === i }" @click="goTo(i)"></button>
+            </template>
         </div>
     </div>
 </section>
@@ -711,6 +767,43 @@
 
 @push('head-scripts')
 <script>
+    // Hero carousel with auto-play
+    function heroCarousel() {
+        return {
+            current: 0,
+            slides: [0, 1, 2],
+            interval: null,
+            init() {
+                this.interval = setInterval(() => {
+                    this.current = (this.current + 1) % this.slides.length;
+                }, 5000);
+            },
+            destroy() {
+                if (this.interval) clearInterval(this.interval);
+            },
+            next() {
+                this.current = (this.current + 1) % this.slides.length;
+                this.resetTimer();
+            },
+            prev() {
+                this.current = (this.current - 1 + this.slides.length) % this.slides.length;
+                this.resetTimer();
+            },
+            goTo(i) {
+                this.current = i;
+                this.resetTimer();
+            },
+            resetTimer() {
+                if (this.interval) {
+                    clearInterval(this.interval);
+                    this.interval = setInterval(() => {
+                        this.current = (this.current + 1) % this.slides.length;
+                    }, 5000);
+                }
+            }
+        }
+    }
+
     // Carousel controller
     function ecCarousel() {
         return {
