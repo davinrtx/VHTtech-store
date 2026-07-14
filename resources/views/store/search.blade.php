@@ -72,7 +72,7 @@
     border-radius:3px;font-size:.625rem;font-weight:700;
     text-transform:uppercase;line-height:1.2
 }
-.search-result-item .sri-badge .feat{background:var(--color-primary);color:#333e48}
+.search-result-item .sri-badge .feat{background:var(--color-primary);color:#fff}
 .search-result-item .sri-badge .refurb{background:var(--color-reacondicionado,#e8daef);color:var(--color-reacondicionado-text,#6c3483)}
 
 /* Content */
@@ -116,11 +116,11 @@
 .search-result-item .sri-btn-cart{
     display:flex;align-items:center;justify-content:center;
     gap:.5rem;height:2.375rem;padding:0 1.25rem;
-    border-radius:4px;background:var(--color-shop-button);color:#333e48;
+    border-radius:4px;background:var(--color-shop-button);color:#fff;
     border:none;cursor:pointer;font-size:.8125rem;font-weight:600;
     text-decoration:none;transition:background .15s
 }
-.search-result-item .sri-btn-cart:hover{background:var(--color-shop-button-active);color:#333e48}
+.search-result-item .sri-btn-cart:hover{background:var(--color-shop-button-active);color:#fff}
 .search-result-item .sri-btn-cart svg{width:16px;height:16px;flex-shrink:0}
 .search-result-item .sri-btn-detail{
     display:flex;align-items:center;justify-content:center;
