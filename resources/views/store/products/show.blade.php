@@ -22,6 +22,21 @@
     .single-thumbnails #product-thumbnails .swiper-slide.swiper-slide-thumb-active{border-color:var(--color-main-text)}
     .single-thumbnails #product-thumbnails .swiper-slide img{width:100%;height:100%;object-fit:cover}
 
+    /* ZOOM PANEL — Amazon-style */
+    .klb-product-gallery{position:relative;overflow:visible}
+    .zoom-panel{
+        display:none;position:absolute;top:0;left:calc(100% + 1rem);
+        width:420px;max-width:44vw;aspect-ratio:1;
+        border-radius:var(--border-radius);overflow:hidden;
+        background-repeat:no-repeat;background-size:250%;
+        background-color:#fff;
+        box-shadow:0 6px 30px rgba(0,0,0,.14);
+        border:1px solid var(--color-theme-border);
+        z-index:20;pointer-events:none
+    }
+    .single-thumbnails:hover .zoom-panel{display:block}
+    @media(max-width:1200px){.zoom-panel{display:none!important}}
+
     .klb-product-detail{}
     .product-brand{font-size:.8125rem;font-weight:500;margin-bottom:.4375rem}
     .product-brand a{text-decoration:none;color:var(--color-link)}
@@ -150,6 +165,7 @@
                                     <svg width="96" height="96" fill="none" stroke="#d0d5dd" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                                 @endif
                             </div>
+                            <div class="zoom-panel" id="zoom-panel"></div>
                             @if($product->images->count() > 1)
                             <div id="product-thumbnails">
                                 @foreach($product->images as $image)
@@ -331,4 +347,49 @@
         @endif
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var container = document.getElementById('product-images');
+    var panel = document.getElementById('zoom-panel');
+    if(!container || !panel) return;
+
+    function getImg(){
+        var img = container.querySelector('img');
+        return img && img.src && !img.src.includes('data:image/svg') ? img : null;
+    }
+
+    container.addEventListener('mouseenter', function(){
+        var img = getImg();
+        if(!img) { panel.style.display = 'none'; return; }
+        panel.style.backgroundImage = 'url(' + img.src + ')';
+    });
+
+    container.addEventListener('mousemove', function(e){
+        var img = getImg();
+        if(!img) return;
+        var rect = container.getBoundingClientRect();
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        panel.style.backgroundPosition = x + '% ' + y + '%';
+    });
+
+    // Update zoom when thumbnail changes the main image
+    var thumbs = document.querySelectorAll('#product-thumbnails .swiper-slide');
+    thumbs.forEach(function(thumb){
+        thumb.addEventListener('click', function(){
+            var thumbImg = thumb.querySelector('img');
+            var mainImg = container.querySelector('img');
+            if(thumbImg && mainImg){
+                mainImg.src = thumbImg.src;
+                if(panel.style.display !== 'none'){
+                    panel.style.backgroundImage = 'url(' + thumbImg.src + ')';
+                }
+            }
+        });
+    });
+});
+</script>
+@endpush
 @endsection
