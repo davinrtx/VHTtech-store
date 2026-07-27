@@ -546,8 +546,28 @@
             </form>
 
             <div class="header-icons">
+                @auth
                 <div class="header-addons login-button">
                     <a href="#">
+                        <div class="header-addons-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+                        </div>
+                        <div class="header-addons-text">
+                            <span class="sub-text">Hola,</span>
+                            <span class="primary-text">{{ Auth::user()->name }}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="header-addons" style="margin-left:.5rem">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" style="background:none;border:none;color:var(--color-text-light);font-size:.75rem;cursor:pointer;font-family:var(--font-primary);padding:.25rem .5rem;transition:color .15s;white-space:nowrap"
+                                onmouseover="this.style.color='var(--color-main-text)'" onmouseout="this.style.color='var(--color-text-light)'">Salir</button>
+                    </form>
+                </div>
+                @else
+                <div class="header-addons login-button">
+                    <a href="{{ route('login') }}">
                         <div class="header-addons-icon">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
                         </div>
@@ -557,6 +577,7 @@
                         </div>
                     </a>
                 </div>
+                @endauth
 
                 <div class="header-addons wishlist-button">
                     <a href="#">
