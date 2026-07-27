@@ -8,22 +8,25 @@
     .single-product-container{margin-top:1.25rem}
     .single-product-container .row{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
 
-    .klb-product-gallery{position:relative}
-    .single-thumbnails .woocommerce-product-gallery{position:relative}
+    /* === AMAZON-STYLE GALLERY === */
+    .klb-product-gallery{position:relative;overflow:visible}
+    .single-thumbnails .woocommerce-product-gallery{position:relative;display:flex;gap:.75rem;align-items:flex-start}
+    .gallery-thumbs-column{display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;width:70px}
+    .gallery-main-column{flex:1;position:relative;min-width:0}
+
     .single-thumbnails #product-images{border:1px solid #f0f3f7;border-radius:var(--border-radius);overflow:hidden;background:var(--color-theme-light);aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative}
     .single-thumbnails #product-images img{width:100%;height:100%;object-fit:cover}
     .badge-float{position:absolute;top:1rem;left:1rem;z-index:2;display:flex;flex-direction:column;gap:.375rem}
     .badge-float span{display:inline-block;padding:.25rem .625rem;border-radius:3px;font-size:.75rem;font-weight:700;text-transform:uppercase;line-height:1.2}
     .badge-float .refurb{background:var(--color-reacondicionado,#e8daef);color:var(--color-reacondicionado-text,#6c3483)}
     .badge-float .featured{background:#fef3cd;color:#856404}
-    .single-thumbnails #product-thumbnails{display:flex;gap:.375rem;margin-top:.625rem;flex-wrap:wrap}
-    .single-thumbnails #product-thumbnails .swiper-slide{width:5rem;height:5rem;border:1px solid var(--color-theme-border);border-radius:4px;overflow:hidden;cursor:pointer;background:var(--color-theme-light);flex-shrink:0;transition:border-color .15s}
+    .single-thumbnails #product-thumbnails{display:flex;flex-direction:column;gap:.5rem;margin-top:0;flex-wrap:nowrap}
+    .single-thumbnails #product-thumbnails .swiper-slide{width:70px;height:70px;border:2px solid var(--color-theme-border);border-radius:6px;overflow:hidden;cursor:pointer;background:var(--color-theme-light);flex-shrink:0;transition:border-color .15s}
     .single-thumbnails #product-thumbnails .swiper-slide:hover{border-color:var(--color-main-text)}
     .single-thumbnails #product-thumbnails .swiper-slide.swiper-slide-thumb-active{border-color:var(--color-main-text)}
     .single-thumbnails #product-thumbnails .swiper-slide img{width:100%;height:100%;object-fit:cover}
 
     /* ZOOM PANEL — Amazon-style */
-    .klb-product-gallery{position:relative;overflow:visible}
     .zoom-panel{
         display:none;position:absolute;top:0;left:calc(100% + 1rem);
         width:420px;max-width:44vw;aspect-ratio:1;
@@ -35,7 +38,14 @@
         z-index:20;pointer-events:none
     }
     .single-thumbnails:hover .zoom-panel{display:block}
+
     @media(max-width:1200px){.zoom-panel{display:none!important}}
+    @media(max-width:768px){
+        .single-thumbnails .woocommerce-product-gallery{flex-direction:column}
+        .gallery-thumbs-column{width:100%;flex-direction:row;order:2;overflow-x:auto}
+        .single-thumbnails #product-thumbnails{flex-direction:row;flex-wrap:nowrap;gap:.375rem}
+        .single-thumbnails #product-thumbnails .swiper-slide{width:4rem;height:4rem;flex-shrink:0}
+    }
 
     .klb-product-detail{}
     .product-brand{font-size:.8125rem;font-weight:500;margin-bottom:.4375rem}
@@ -150,31 +160,35 @@
     <div class="container">
         <div class="single-product-container">
             <div class="row">
-                {{-- GALLERY --}}
+                {{-- GALLERY (Amazon-style: thumbs left, main right) --}}
                 <div class="klb-product-gallery col col-12 col-lg-6">
                     <div class="single-thumbnails default">
                         <div class="woocommerce-product-gallery">
-                            <div class="badge-float">
-                                @if($product->is_refurbished)<span class="refurb">Reacondicionado</span>@endif
-                                @if($product->is_featured)<span class="featured">Destacado</span>@endif
-                            </div>
-                            <div id="product-images">
-                                @if($product->primaryImage->first())
-                                    <img src="{{ Storage::url($product->primaryImage->first()->path) }}" alt="{{ $product->name }}">
-                                @else
-                                    <svg width="96" height="96" fill="none" stroke="#d0d5dd" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                                @endif
-                            </div>
-                            <div class="zoom-panel" id="zoom-panel"></div>
                             @if($product->images->count() > 1)
-                            <div id="product-thumbnails">
-                                @foreach($product->images as $image)
-                                <div class="swiper-slide {{ $image->is_primary ? 'swiper-slide-thumb-active' : '' }}">
-                                    <img src="{{ Storage::url($image->path) }}" alt="">
+                            <div class="gallery-thumbs-column">
+                                <div id="product-thumbnails">
+                                    @foreach($product->images as $image)
+                                    <div class="swiper-slide {{ $image->is_primary ? 'swiper-slide-thumb-active' : '' }}" data-img="{{ Storage::url($image->path) }}">
+                                        <img src="{{ Storage::url($image->path) }}" alt="">
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
                             @endif
+                            <div class="gallery-main-column">
+                                <div class="badge-float">
+                                    @if($product->is_refurbished)<span class="refurb">Reacondicionado</span>@endif
+                                    @if($product->is_featured)<span class="featured">Destacado</span>@endif
+                                </div>
+                                <div id="product-images">
+                                    @if($product->primaryImage->first())
+                                        <img src="{{ Storage::url($product->primaryImage->first()->path) }}" alt="{{ $product->name }}">
+                                    @else
+                                        <svg width="96" height="96" fill="none" stroke="#d0d5dd" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                                    @endif
+                                </div>
+                                <div class="zoom-panel" id="zoom-panel"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function(){
         panel.style.backgroundPosition = x + '% ' + y + '%';
     });
 
-    // Update zoom when thumbnail changes the main image
+    // Thumbnail selection (Amazon-style)
     var thumbs = document.querySelectorAll('#product-thumbnails .swiper-slide');
     thumbs.forEach(function(thumb){
         thumb.addEventListener('click', function(){
@@ -383,6 +397,10 @@ document.addEventListener('DOMContentLoaded', function(){
             var mainImg = container.querySelector('img');
             if(thumbImg && mainImg){
                 mainImg.src = thumbImg.src;
+                // update active class
+                thumbs.forEach(function(t){ t.classList.remove('swiper-slide-thumb-active'); });
+                thumb.classList.add('swiper-slide-thumb-active');
+                // update zoom if visible
                 if(panel.style.display !== 'none'){
                     panel.style.backgroundImage = 'url(' + thumbImg.src + ')';
                 }
